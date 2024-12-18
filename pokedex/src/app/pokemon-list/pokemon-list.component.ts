@@ -74,4 +74,26 @@ export class PokemonListComponent implements OnInit {
       { name: 'Speed', value: pokemon.speed, color: '#ff6600' }
     ];
   }
+
+  nextPokemon(event: Event): void {
+    event.stopPropagation(); // Verhindert, dass der Klick das Overlay schließt
+    if (this.selectedPokemon) {
+      const currentIndex = this.pokemons.indexOf(this.selectedPokemon);
+      const nextIndex = (currentIndex + 1) % this.pokemons.length; // Zyklisch
+      this.selectedPokemon = this.pokemons[nextIndex];
+      this.setPokemonStats(this.selectedPokemon);
+    }
+  }
+  
+  prevPokemon(event: Event): void {
+    event.stopPropagation(); // Verhindert, dass der Klick das Overlay schließt
+    if (this.selectedPokemon) {
+      const currentIndex = this.pokemons.indexOf(this.selectedPokemon);
+      const prevIndex =
+        (currentIndex - 1 + this.pokemons.length) % this.pokemons.length; // Zyklisch
+      this.selectedPokemon = this.pokemons[prevIndex];
+      this.setPokemonStats(this.selectedPokemon);
+    }
+  }
+  
 }

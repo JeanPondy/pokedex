@@ -27,44 +27,49 @@
   </div>
 
   <!-- Detail-Popup -->
-  <div
-    *ngIf="selectedPokemon"
-    class="pokemon-details"
-    (click)="closeDetails($event)"
-  >
-    <div class="details-header">
-      <h3>{{ selectedPokemon.name | titlecase }}</h3>
-      <button (click)="closeDetails($event)">Schließen</button>
-    </div>
+  <div *ngIf="selectedPokemon" class="pokemon-details">
+    <!-- Linker Pfeil -->
+    <button class="arrow left" (click)="prevPokemon($event)">❮</button>
 
-    <!-- Bildbereich -->
-    <div class="pokemon-img-container">
-      <img
-        [src]="selectedPokemon.image"
-        [alt]="selectedPokemon.name"
-        class="pokemon-img-detail"
-      />
-    </div>
+    <!-- Detailbereich -->
+    <div class="details-content">
+      <div class="details-header">
+        <h3>{{ selectedPokemon.name | titlecase }}</h3>
+        <button (click)="closeDetails($event)">Schließen</button>
+      </div>
 
-    <!-- Name und Typ des Pokémon -->
-    <div class="name-type-pos">
-      <p>{{ selectedPokemon.type | titlecase }}</p>
-    </div>
+      <!-- Bildbereich -->
+      <div class="pokemon-img-container">
+        <img
+          [src]="selectedPokemon.image"
+          [alt]="selectedPokemon.name"
+          class="pokemon-img-detail"
+        />
+      </div>
 
-    <!-- Statistiken des Pokémon mit Fortschrittsbalken -->
-    <div class="stats">
-      <div *ngFor="let stat of pokemonStats" class="stat-item">
-        <p>
-          <strong>{{ stat.name }}:</strong> {{ stat.value }}
-        </p>
-        <div class="progress-bar">
-          <div
-            class="progress"
-            [style.width]="stat.value + '%'"
-            [style.background-color]="stat.color"
-          ></div>
+      <!-- Typ des Pokémon -->
+      <div class="name-type-pos">
+        <p>{{ selectedPokemon.type | titlecase }}</p>
+      </div>
+
+      <!-- Statistiken des Pokémon mit Fortschrittsbalken -->
+      <div class="stats">
+        <div *ngFor="let stat of pokemonStats" class="stat-item">
+          <p>
+            <strong>{{ stat.name }}:</strong> {{ stat.value }}
+          </p>
+          <div class="progress-bar">
+            <div
+              class="progress"
+              [style.width]="stat.value + '%'"
+              [style.background-color]="stat.color"
+            ></div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Rechter Pfeil -->
+    <button class="arrow right" (click)="nextPokemon($event)">❯</button>
   </div>
 </div>
