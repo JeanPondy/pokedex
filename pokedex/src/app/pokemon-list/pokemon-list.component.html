@@ -1,17 +1,14 @@
 <div class="container">
-  <h1>Pokémon-Liste</h1>
-
-  <!-- Fehlermeldung -->
-  <div *ngIf="errorMessage" class="error-message">
-    <p>{{ errorMessage }}</p>
-  </div>
-
   <!-- Pokémon-Anzeige -->
   <div *ngIf="pokemons.length > 0; else noData">
     <div class="pokemon-grid">
-      <div *ngFor="let pokemon of pokemons" class="pokemon-card">
-        <img [src]="pokemon.image" [alt]="pokemon.name" />
+      <div
+        *ngFor="let pokemon of pokemons"
+        class="pokemon-card {{ pokemon.type }}"
+        (click)="showDetails(pokemon)"
+      >
         <h3>{{ pokemon.name | titlecase }}</h3>
+        <img [src]="pokemon.image" [alt]="pokemon.name" />
         <p>Typ: {{ pokemon.type | titlecase }}</p>
       </div>
     </div>
@@ -27,5 +24,47 @@
     <button (click)="loadPokemons()" [disabled]="isLoading">
       {{ isLoading ? "Lädt..." : "Mehr laden" }}
     </button>
+  </div>
+
+  <!-- Detail-Popup -->
+  <div
+    *ngIf="selectedPokemon"
+    class="pokemon-details"
+    (click)="closeDetails($event)"
+  >
+    <div class="details-header">
+      <h3>{{ selectedPokemon.name | titlecase }}</h3>
+      <button (click)="closeDetails($event)">Schließen</button>
+    </div>
+
+    <!-- Bildbereich -->
+    <div class="pokemon-img-container">
+      <img
+        [src]="selectedPokemon.image"
+        [alt]="selectedPokemon.name"
+        class="pokemon-img-detail"
+      />
+    </div>
+
+    <!-- Name und Typ des Pokémon -->
+    <div class="name-type-pos">
+      <p>{{ selectedPokemon.type | titlecase }}</p>
+    </div>
+
+    <!-- Statistiken des Pokémon mit Fortschrittsbalken -->
+    <div class="stats">
+      <div *ngFor="let stat of pokemonStats" class="stat-item">
+        <p>
+          <strong>{{ stat.name }}:</strong> {{ stat.value }}
+        </p>
+        <div class="progress-bar">
+          <div
+            class="progress"
+            [style.width]="stat.value + '%'"
+            [style.background-color]="stat.color"
+          ></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

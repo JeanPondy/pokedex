@@ -1,57 +1,222 @@
 .container {
-    text-align: center;
+  text-align: center;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 24px;
+  margin: 20px 16px;
+}
+
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Hover-Effekt */
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
   }
-  
-  .pokemon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    margin: 20px 40px;
+
+  /* Typenabhängige Farben */
+  &.fire {
+    background-color: #f08030;
   }
-  
-  .pokemon-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
-    img {
-      width: 140px;
-      height: 200px;
-    }
-  
-    h3 {
-      margin: 10px 0 5px;
-      font-size: 16px;
-    }
-  
-    p {
-      font-size: 14px;
-      color: #555;
-    }
+  &.water {
+    background-color: #6890f0;
   }
-  
-  .load-more {
-    margin: 20px 0;
-  
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: #218838;
-      }
-  
-      &:disabled {
-        background-color: #6c757d;
-        cursor: not-allowed;
-      }
-    }
+  &.grass {
+    background-color: #78c850;
   }
-  
+  &.electric {
+    background-color: #f8d030;
+  }
+  &.psychic {
+    background-color: #f85888;
+  }
+  &.ice {
+    background-color: #98d8d8;
+  }
+  &.dragon {
+    background-color: #7038f8;
+  }
+  &.dark {
+    background-color: #705848;
+  }
+  &.fairy {
+    background-color: #ee99ac;
+  }
+  &.normal {
+    background-color: #a8a878;
+  }
+  &.fighting {
+    background-color: #c03028;
+  }
+  &.flying {
+    background-color: #a890f0;
+  }
+  &.poison {
+    background-color: #a040a0;
+  }
+  &.ground {
+    background-color: #e0c068;
+  }
+  &.rock {
+    background-color: #b8a038;
+  }
+  &.bug {
+    background-color: #a8b820;
+  }
+  &.ghost {
+    background-color: #705898;
+  }
+  &.steel {
+    background-color: #b8b8d0;
+  }
+
+  /* Fallback für unbekannte Typen */
+  &.unknown {
+    background-color: #cccccc;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 8px;
+ 
+  }
+}
+
+.load-more {
+  margin: 20px 0;
+}
+
+.load-more button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more button:hover {
+  background-color: #218838;
+}
+
+.load-more button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+.pokemon-details {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 320px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+}
+
+.pokemon-details .details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.pokemon-details button {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pokemon-details button:hover {
+  background-color: #ff4040;
+}
+
+/* Stil für das Pokémon-Bild */
+.pokemon-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pokemon-img-detail {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  z-index: 99;
+}
+
+/* Name und Typ des Pokémon */
+.name-type-pos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 24px;
+  color: white;
+}
+
+.name-type-pos h4 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.name-type-pos p {
+  font-size: 20px;
+}
+
+/* Statistiken mit Fortschrittsbalken */
+.stats {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.stats .stat-item {
+  margin-bottom: 15px;
+}
+
+.stats p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Fortschrittsbalken */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow-x: hidden;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 4px;
+}
+

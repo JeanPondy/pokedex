@@ -6,30 +6,16 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #f5f5f5;
+    background-color: rgb(3, 37, 25);
     margin: 0;
   }
   
-  /* Header-Styling */
-  .app-header {
-    background-color: #007bff;
-    color: white;
-    width: 100%;
-    text-align: center;
-    padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-  }
-  
+
   /* Hauptbereich der App */
   main {
     flex: 1;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 20px auto;
   
   }
