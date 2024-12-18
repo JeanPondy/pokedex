@@ -1,0 +1,33 @@
+.contain{
+    //max-width: 1440px;
+    width: 100%;
+    height: 100px;
+    margin: 0px auto;
+    background-color: rgb(6, 75, 52);
+
+    .header{
+       max-width: 1440px;
+       
+        padding: 20px 160px;
+        display: flex;
+        justify-content:space-between;
+        
+    
+        >img{
+            height: 60px;
+            width: 60px;
+         }
+
+         .title-search{
+            .title{
+                font-size: 48px;
+                color: white;
+                margin-top: 0px;
+               
+             
+            }
+         }
+
+    }
+   
+}

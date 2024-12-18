@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Pokémon-Liste</h1>
+
+  <!-- Fehlermeldung -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Pokémon-Anzeige -->
+  <div *ngIf="pokemons.length > 0; else noData">
+    <div class="pokemon-grid">
+      <div *ngFor="let pokemon of pokemons" class="pokemon-card">
+        <img [src]="pokemon.image" [alt]="pokemon.name" />
+        <h3>{{ pokemon.name | titlecase }}</h3>
+        <p>Typ: {{ pokemon.type | titlecase }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keine Daten -->
+  <ng-template #noData>
+    <p>Keine Pokémon gefunden.</p>
+  </ng-template>
+
+  <!-- Lade-Button -->
+  <div class="load-more">
+    <button (click)="loadPokemons()" [disabled]="isLoading">
+      {{ isLoading ? "Lädt..." : "Mehr laden" }}
+    </button>
+  </div>
+</div>
