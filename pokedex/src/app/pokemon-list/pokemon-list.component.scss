@@ -1,5 +1,6 @@
 .container {
   text-align: center;
+  margin-top: 100px;
 }
 
 .pokemon-grid {
@@ -14,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
   gap: 8px;
 
   padding: 16px;
@@ -121,7 +123,7 @@
   cursor: not-allowed;
 }
 .pokemon-details {
-  position: fixed;
+  position: absolute;
   top: 10%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -132,17 +134,29 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
   z-index: 1000;
+  border-radius: 40px;
+ 
 }
 
 .pokemon-details .details-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 15px;
+  color: white;
+
+  h3{
+    margin-top: 0px;
+    font-size: 60px;
+  }
+
+  p{
+    margin-top: -44px;
+  }
 }
 
 .pokemon-details button {
-  background-color: #ff6b6b;
+  background-color: rgb(228,30,37);
   border: none;
   color: white;
   padding: 8px 16px;
@@ -152,7 +166,7 @@
 }
 
 .pokemon-details button:hover {
-  background-color: #ff4040;
+  background-color: rgb(232, 74, 79);
 }
 
 /* Stil für das Pokémon-Bild */
@@ -168,10 +182,13 @@
   height: 250px;
   object-fit: contain;
   z-index: 99;
+  margin-top: -20px;
+ 
+
 }
 
 /* Name und Typ des Pokémon */
-.name-type-pos {
+.Schließen-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,12 +209,22 @@
 
 /* Statistiken mit Fortschrittsbalken */
 .stats {
-  margin-top: 20px;
   text-align: left;
   font-size: 14px;
+  margin-top: 120px;
+  
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  margin-left: -20px;
+  padding: 20px;
+  border-radius: 40px;
+ 
+
 }
 
 .stats .stat-item {
+
   margin-bottom: 15px;
 }
 
@@ -236,6 +263,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  background-color: white;
+  border-radius: 40px;
 }
 
 .arrow {
@@ -272,3 +301,103 @@
   flex-grow: 1;
 }
 
+.pokemon-details.fire {
+  background-color: #f08030;
+}
+
+.pokemon-details.water {
+  background-color: #6890f0;
+}
+
+.pokemon-details.grass {
+  background-color: #78c850;
+}
+
+.pokemon-details.electric {
+  background-color: #f8d030;
+}
+
+.pokemon-details.psychic {
+  background-color: #f85888;
+}
+
+.pokemon-details.ice {
+  background-color: #98d8d8;
+}
+
+.pokemon-details.dragon {
+  background-color: #7038f8;
+}
+
+.pokemon-details.dark {
+  background-color: #705848;
+}
+
+.pokemon-details.fairy {
+  background-color: #ee99ac;
+}
+
+.pokemon-details.normal {
+  background-color: #a8a878;
+}
+
+.pokemon-details.fighting {
+  background-color: #c03028;
+}
+
+.pokemon-details.flying {
+  background-color: #a890f0;
+}
+
+.pokemon-details.poison {
+  background-color: #a040a0;
+}
+
+.pokemon-details.ground {
+  background-color: #e0c068;
+}
+
+.pokemon-details.rock {
+  background-color: #b8a038;
+}
+
+.pokemon-details.bug {
+  background-color: #a8b820;
+}
+
+.pokemon-details.ghost {
+  background-color: #705898;
+}
+
+.pokemon-details.steel {
+  background-color: #b8b8d0;
+}
+
+.pokemon-details.unknown {
+  background-color: #cccccc;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+/* ---------------------------------------------------- */

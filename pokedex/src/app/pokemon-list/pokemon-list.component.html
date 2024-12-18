@@ -27,7 +27,10 @@
   </div>
 
   <!-- Detail-Popup -->
-  <div *ngIf="selectedPokemon" class="pokemon-details">
+  <div
+    *ngIf="selectedPokemon"
+    class="pokemon-details {{ selectedPokemon.type }}"
+  >
     <!-- Linker Pfeil -->
     <button class="arrow left" (click)="prevPokemon($event)">❮</button>
 
@@ -35,7 +38,7 @@
     <div class="details-content">
       <div class="details-header">
         <h3>{{ selectedPokemon.name | titlecase }}</h3>
-        <button (click)="closeDetails($event)">Schließen</button>
+        <p>{{ selectedPokemon.type | titlecase }}</p>
       </div>
 
       <!-- Bildbereich -->
@@ -45,11 +48,6 @@
           [alt]="selectedPokemon.name"
           class="pokemon-img-detail"
         />
-      </div>
-
-      <!-- Typ des Pokémon -->
-      <div class="name-type-pos">
-        <p>{{ selectedPokemon.type | titlecase }}</p>
       </div>
 
       <!-- Statistiken des Pokémon mit Fortschrittsbalken -->
@@ -66,6 +64,10 @@
             ></div>
           </div>
         </div>
+      </div>
+      <!-- Typ des Pokémon -->
+      <div class="Schließen-btn">
+        <button (click)="closeDetails($event)">Schließen</button>
       </div>
     </div>
 
