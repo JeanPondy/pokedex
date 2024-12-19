@@ -9,4 +9,12 @@ import { HeaderComponent } from './header/header.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+
+  searchQuery: string = ''; // Suchbegriff wird hier gespeichert
+
+  // Event-Handler für die Suche
+  onSearchPokemon(searchQuery: string) {
+    this.searchQuery = searchQuery; // Suchbegriff an die Pokémon-Liste weitergeben
+  }
+}

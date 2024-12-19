@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header (searchPokemonEvent)="onSearchPokemon($event)"></app-header>
+
 <div class="app-container">
   <!-- Titel der App -->
   <!--  <header class="app-header">
@@ -7,6 +8,6 @@
 
   <!-- Pokémon-Liste-Komponente -->
   <main>
-    <app-pokemon-list></app-pokemon-list>
+    <app-pokemon-list [searchQuery]="searchQuery"></app-pokemon-list>
   </main>
 </div>

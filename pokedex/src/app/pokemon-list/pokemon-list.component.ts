@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, Input, OnChanges, SimpleChanges, OnInit  } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../models/pokemon';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss'],
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent implements OnInit,  OnChanges  {
+  @Input() searchQuery: string = ''; // Suchbegriff als Input
+
   pokemons: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
   isLoading: boolean = false;
@@ -23,6 +25,13 @@ export class PokemonListComponent implements OnInit {
   ngOnInit(): void {
     this.loadPokemons();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchQuery'] && changes['searchQuery'].currentValue) {
+      this.searchPokemon(changes['searchQuery'].currentValue);
+    }
+  }
+
   loadPokemons() {
     this.isLoading = true;
     this.errorMessage = ''; // Fehler zurücksetzen
@@ -40,6 +49,17 @@ export class PokemonListComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+  searchPokemon(searchQuery: string) {
+    const foundPokemon = this.pokemons.find(
+      (pokemon) => pokemon.name.toLowerCase() === searchQuery.trim().toLowerCase()
+    );
+
+    if (foundPokemon) {
+      this.showDetails(foundPokemon);
+    } else {
+      alert('Kein Pokémon mit diesem Namen gefunden!');
+    }
   }
   
 

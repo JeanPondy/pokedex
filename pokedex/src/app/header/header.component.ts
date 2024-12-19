@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  searchQuery: string = '';
 
+  @Output() searchPokemonEvent = new EventEmitter<string>();
+
+  searchPokemon() {
+    if (this.searchQuery.trim()) {
+      this.searchPokemonEvent.emit(this.searchQuery.trim());
+    }
+  }
 }
