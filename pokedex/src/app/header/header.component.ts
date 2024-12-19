@@ -17,6 +17,7 @@ export class HeaderComponent {
   searchPokemon() {
     if (this.searchQuery.trim()) {
       this.searchPokemonEvent.emit(this.searchQuery.trim());
+      this.searchQuery = ''; // Suchfeld leeren
     }
   }
 }

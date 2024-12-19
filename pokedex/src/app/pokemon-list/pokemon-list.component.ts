@@ -50,17 +50,29 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
       },
     });
   }
+
   searchPokemon(searchQuery: string) {
     const foundPokemon = this.pokemons.find(
       (pokemon) => pokemon.name.toLowerCase() === searchQuery.trim().toLowerCase()
     );
-
+  
     if (foundPokemon) {
+      // Wenn das Pokémon bereits geladen ist, Details anzeigen
       this.showDetails(foundPokemon);
     } else {
-      alert('Kein Pokémon mit diesem Namen gefunden!');
+      // Wenn das Pokémon nicht geladen ist, von der API laden
+      this.pokemonService.getPokemonByName(searchQuery.trim()).subscribe({
+        next: (pokemon: Pokemon) => {
+          this.pokemons.push(pokemon); // Gefundenes Pokémon zur Liste hinzufügen
+          this.showDetails(pokemon); // Details anzeigen
+        },
+        error: () => {
+          alert('Dieses Pokémon konnte nicht gefunden werden!');
+        },
+      });
     }
   }
+  
   
 
   shufflePokemons(pokemons: Pokemon[]): Pokemon[] {
