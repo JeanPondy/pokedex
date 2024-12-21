@@ -184,8 +184,6 @@
   object-fit: contain;
   z-index: 99;
   margin-top: -20px;
- 
-
 }
 
 /* Name und Typ des Pokémon */
@@ -482,6 +480,7 @@
   .pokemon-img-container {
     img {
       max-height: 200px; /* Bildgröße anpassen */
+      max-width: 200px;
     }
   }
   .pokemon-details button {
@@ -519,6 +518,13 @@
       }
       p{
         margin-top: -32px;
+      }
+    }
+    .pokemon-img-container{
+
+      .pokemon-img-detail{
+        width: 200px;
+        height: 200px;
       }
     }
   }
@@ -559,6 +565,9 @@
     font-size: 24px;
     color: white;
   }
+
+
+
 
 }
 
