@@ -28,8 +28,9 @@ export class PokemonService {
             this.http.get<any>(pokemon.url).subscribe({
               next: (details) => {
                 pokemons.push({
+                  id: details.id, // ID hier hinzufügen
                   name: details.name,
-                  image: details.sprites.other['official-artwork'].front_default, // Hochauflösende URL
+                  image: details.sprites.other['official-artwork'].front_default,
                   type: details.types[0]?.type.name || 'Unknown',
                   hp: details.stats[0]?.base_stat || 0,
                   attack: details.stats[1]?.base_stat || 0,
@@ -38,8 +39,7 @@ export class PokemonService {
                   spDef: details.stats[4]?.base_stat || 0,
                   speed: details.stats[5]?.base_stat || 0,
                 });
-                
-
+            
                 completedRequests++;
                 if (completedRequests === results.length) {
                   observer.next(pokemons);
@@ -50,6 +50,8 @@ export class PokemonService {
                 observer.error(error);
               },
             });
+            
+
           });
         });
       })
@@ -62,6 +64,7 @@ export class PokemonService {
 
     return this.http.get<any>(url).pipe(
       map((details) => ({
+        id: details.id, // ID hinzufügen
         name: details.name,
         image: details.sprites.other['official-artwork'].front_default, // Hochauflösende URL
         type: details.types[0]?.type.name || 'Unknown',

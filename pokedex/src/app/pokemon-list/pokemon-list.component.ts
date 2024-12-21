@@ -1,4 +1,4 @@
-import {  Component, Input, OnChanges, SimpleChanges, OnInit  } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../models/pokemon';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss'],
 })
-export class PokemonListComponent implements OnInit,  OnChanges  {
+export class PokemonListComponent implements OnInit, OnChanges {
   @Input() searchQuery: string = ''; // Suchbegriff als Input
 
   pokemons: Pokemon[] = [];
@@ -18,7 +18,7 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  pokemonStats: { name: string, value: number, color: string }[] = [];
+  pokemonStats: { name: string; value: number; color: string }[] = [];
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -35,17 +35,18 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
   loadPokemons() {
     this.isLoading = true;
     this.errorMessage = ''; // Fehler zurücksetzen
-  
+
     this.pokemonService.getPokemons().subscribe({
       next: (data: Pokemon[]) => {
-        const shuffledData = this.shufflePokemons(data); // Liste mischen
-        this.pokemons = [...this.pokemons, ...shuffledData];
+        // Liste nach ID sortieren
+        this.pokemons = [...this.pokemons, ...data].sort((a, b) => a.id - b.id);
         this.isLoading = false;
         this.pokemonService.updateOffset();
       },
       error: (error) => {
         console.error('Fehler beim Laden der Pokémon:', error);
-        this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
+        this.errorMessage =
+          'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
         this.isLoading = false;
       },
     });
@@ -55,7 +56,7 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
     const foundPokemon = this.pokemons.find(
       (pokemon) => pokemon.name.toLowerCase() === searchQuery.trim().toLowerCase()
     );
-  
+
     if (foundPokemon) {
       // Wenn das Pokémon bereits geladen ist, Details anzeigen
       this.showDetails(foundPokemon);
@@ -64,6 +65,7 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
       this.pokemonService.getPokemonByName(searchQuery.trim()).subscribe({
         next: (pokemon: Pokemon) => {
           this.pokemons.push(pokemon); // Gefundenes Pokémon zur Liste hinzufügen
+          this.pokemons.sort((a, b) => a.id - b.id); // Nach ID sortieren
           this.showDetails(pokemon); // Details anzeigen
         },
         error: () => {
@@ -72,19 +74,9 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
       });
     }
   }
-  
-  
 
-  shufflePokemons(pokemons: Pokemon[]): Pokemon[] {
-    return pokemons
-      .map((pokemon) => ({ pokemon, sort: Math.random() })) // Füge zufällige Sortierwerte hinzu
-      .sort((a, b) => a.sort - b.sort) // Sortiere nach dem Zufallswert
-      .map(({ pokemon }) => pokemon); // Entferne die Hilfsdaten
-  }
-
-
-   // Öffnen der Detailansicht
-   showDetails(pokemon: Pokemon) {
+  // Öffnen der Detailansicht
+  showDetails(pokemon: Pokemon) {
     this.selectedPokemon = pokemon;
     this.setPokemonStats(pokemon);
   }
@@ -103,28 +95,27 @@ export class PokemonListComponent implements OnInit,  OnChanges  {
       { name: 'Defense', value: pokemon.defense, color: '#6699ff' },
       { name: 'Sp. Atk', value: pokemon.spAtk, color: '#ff80ff' },
       { name: 'Sp. Def', value: pokemon.spDef, color: '#99ff99' },
-      { name: 'Speed', value: pokemon.speed, color: '#ff6600' }
+      { name: 'Speed', value: pokemon.speed, color: '#ff6600' },
     ];
   }
+
   prevPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;
-  
+
     const currentIndex = this.pokemons.indexOf(this.selectedPokemon);
     const prevIndex = (currentIndex - 1 + this.pokemons.length) % this.pokemons.length;
     this.selectedPokemon = this.pokemons[prevIndex];
     this.setPokemonStats(this.selectedPokemon);
   }
-  
+
   nextPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;
-  
+
     const currentIndex = this.pokemons.indexOf(this.selectedPokemon);
     const nextIndex = (currentIndex + 1) % this.pokemons.length;
     this.selectedPokemon = this.pokemons[nextIndex];
     this.setPokemonStats(this.selectedPokemon);
   }
-  
-  
 }
