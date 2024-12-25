@@ -27,52 +27,85 @@ export class PokemonListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['searchQuery'] && changes['searchQuery'].currentValue) {
+    if (changes['searchQuery'] && changes['searchQuery'].currentValue !== changes['searchQuery'].previousValue) {
       this.searchPokemon(changes['searchQuery'].currentValue);
     }
   }
 
+  // Ursprüngliche Pokémon-Liste laden
   loadPokemons() {
     this.isLoading = true;
     this.errorMessage = ''; // Fehler zurücksetzen
 
     this.pokemonService.getPokemons().subscribe({
       next: (data: Pokemon[]) => {
-        // Liste nach ID sortieren
-        this.pokemons = [...this.pokemons, ...data].sort((a, b) => a.id - b.id);
+        this.pokemons = [...data].sort((a, b) => a.id - b.id); // Liste nach ID sortieren
         this.isLoading = false;
-        this.pokemonService.updateOffset();
       },
       error: (error) => {
         console.error('Fehler beim Laden der Pokémon:', error);
-        this.errorMessage =
-          'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
+        this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
         this.isLoading = false;
       },
     });
   }
 
+  // Suche durchführen
   searchPokemon(searchQuery: string) {
-    const foundPokemon = this.pokemons.find(
-      (pokemon) => pokemon.name.toLowerCase() === searchQuery.trim().toLowerCase()
-    );
-
-    if (foundPokemon) {
-      // Wenn das Pokémon bereits geladen ist, Details anzeigen
-      this.showDetails(foundPokemon);
-    } else {
-      // Wenn das Pokémon nicht geladen ist, von der API laden
-      this.pokemonService.getPokemonByName(searchQuery.trim()).subscribe({
-        next: (pokemon: Pokemon) => {
-          this.pokemons.push(pokemon); // Gefundenes Pokémon zur Liste hinzufügen
-          this.pokemons.sort((a, b) => a.id - b.id); // Nach ID sortieren
-          this.showDetails(pokemon); // Details anzeigen
-        },
-        error: () => {
-          alert('Dieses Pokémon konnte nicht gefunden werden!');
-        },
-      });
+    const query = searchQuery.trim().toLowerCase();
+    if (!this.handleInvalidQuery(query)) {   // Validierung und entsprechende Aktionen
+      return;
     }
+    this.fetchSearchResults(query); // Suche ausführen, wenn der Suchbegriff gültig ist
+  }
+
+  // Überprüft, ob die Eingabe gültig ist
+  private handleInvalidQuery(query: string): boolean {
+    if (!query) {
+      this.loadPokemons(); // Ursprüngliche Pokémon-Liste laden
+      return false;
+    }
+
+    if (query.length < 3) {
+      alert('Bitte mindestens 3 Buchstaben eingeben!');
+      return false;
+    }
+
+    return true;
+  }
+
+  // API-Abfrage für Pokémon basierend auf dem Suchbegriff
+  private fetchSearchResults(query: string) {
+    this.pokemonService.searchPokemons(query).subscribe({
+      next: (pokemons: Pokemon[]) => {
+        if (pokemons.length > 0) {
+          this.updatePokemonList(pokemons); // Pokémon-Liste aktualisieren
+        } else {
+          this.handleNoPokemonFound(); // Fall, wenn keine Pokémon gefunden wurden
+        }
+      },
+      error: (error) => {
+        this.handleSearchError(error); // Fehlerbehandlung
+      },
+    });
+  }
+
+  // Pokémon-Liste aktualisieren
+  private updatePokemonList(pokemons: Pokemon[]) {
+    this.pokemons = pokemons; // Pokémon-Liste mit den Suchergebnissen aktualisieren
+  }
+
+  // Wenn keine Pokémon gefunden wurden
+  private handleNoPokemonFound() {
+    alert('Kein Pokémon mit diesen Buchstaben gefunden!');
+    this.loadPokemons(); // Ursprüngliche Liste wieder laden
+  }
+
+  // Fehler bei der Suche
+  private handleSearchError(error: any) {
+    console.error('Fehler bei der Pokémon-Suche:', error);
+    alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
+    this.loadPokemons(); // Ursprüngliche Liste wieder laden
   }
 
   // Öffnen der Detailansicht
@@ -99,6 +132,7 @@ export class PokemonListComponent implements OnInit, OnChanges {
     ];
   }
 
+  // Navigieren zum vorherigen Pokémon
   prevPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;
@@ -109,6 +143,7 @@ export class PokemonListComponent implements OnInit, OnChanges {
     this.setPokemonStats(this.selectedPokemon);
   }
 
+  // Navigieren zum nächsten Pokémon
   nextPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;

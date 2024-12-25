@@ -15,9 +15,11 @@ export class HeaderComponent {
   @Output() searchPokemonEvent = new EventEmitter<string>();
 
   searchPokemon() {
-    if (this.searchQuery.trim()) {
-      this.searchPokemonEvent.emit(this.searchQuery.trim());
-      this.searchQuery = ''; // Suchfeld leeren
+    const query = this.searchQuery.trim();
+    if (query.length >= 3) {
+      this.searchPokemonEvent.emit(query); // Nur auslösen, wenn mindestens 3 Zeichen
+    } else if (query.length === 0) {
+      this.searchPokemonEvent.emit(''); // Liste zurücksetzen, wenn Eingabe gelöscht wird
     }
   }
 }

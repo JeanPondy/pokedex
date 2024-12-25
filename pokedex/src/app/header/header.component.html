@@ -7,11 +7,10 @@
       <div class="input-suchfeld">
         <input
           type="text"
-          placeholder="Pokémon suchen..."
+          placeholder="search pokemon..."
           [(ngModel)]="searchQuery"
-          (keyup.enter)="searchPokemon()"
+          (keyup)="searchPokemon()"
         />
-        <button (click)="searchPokemon()">Suchen</button>
       </div>
     </div>
   </div>
