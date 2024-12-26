@@ -32,7 +32,7 @@ export class PokemonService {
     );
   }
 
-  getPokemons(): Observable<Pokemon[]> {
+/*   getPokemons(): Observable<Pokemon[]> {
     const url = `${this.apiUrl}?offset=${this.offset}&limit=${this.limit}`;
 
     return this.http.get<any>(url).pipe(
@@ -59,8 +59,44 @@ export class PokemonService {
             });
         })
     );
+} */
+
+// Hauptmethode, die eine Observable mit Pokémon zurückgibt
+getPokemons(): Observable<Pokemon[]> {
+  const url = `${this.apiUrl}?offset=${this.offset}&limit=${this.limit}`;
+
+  return this.http.get<any>(url).pipe(
+    map((response) => response.results),
+    concatMap((results) => this.fetchPokemonDetailsList(results)) // Details abrufen und verarbeiten
+  );
 }
 
+// Methode zum Abrufen der Liste von Pokémon-Details
+private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
+  return new Observable<Pokemon[]>((observer) => {
+    const pokemons: Pokemon[] = [];
+    let completedRequests = 0;
+
+    results.forEach((pokemon: any) => {
+      this.fetchPokemonDetails(pokemon.url).subscribe({
+        next: (pokemonDetails) => {
+          pokemons.push(pokemonDetails);
+          completedRequests++;
+          if (completedRequests === results.length) {
+            // Sortiere Pokémon nach ID, bevor sie zurückgegeben werden
+            observer.next(pokemons.sort((a, b) => a.id - b.id));
+            observer.complete();
+          }
+        },
+        error: (error) => observer.error(error),
+      });
+    });
+  });
+}
+
+
+
+/* ----------------------------------------------------- */
   // Methode, um ein einzelnes Pokémon per Namen zu laden
   getPokemonByName(name: string): Observable<Pokemon> {
     const url = `${this.apiUrl}/${name.toLowerCase()}`;
@@ -78,7 +114,7 @@ export class PokemonService {
     this.offset = 0; // Offset zurücksetzen
 }
 
-  searchPokemons(query: string): Observable<Pokemon[]> {
+/*   searchPokemons(query: string): Observable<Pokemon[]> {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=1000`; // Alle Pokémon laden
 
     return this.http.get<any>(url).pipe(
@@ -107,5 +143,43 @@ export class PokemonService {
         });
       })
     );
-  }
+  } */
+
+    searchPokemons(query: string): Observable<Pokemon[]> {
+      const url = `https://pokeapi.co/api/v2/pokemon?limit=1000`; // Alle Pokémon laden
+    
+      return this.http.get<any>(url).pipe(
+        map((response) => response.results),
+        map((results: any[]) => 
+          results.filter((pokemon) => pokemon.name.startsWith(query)) // Filter in der API-Antwort
+        ),
+        concatMap((filteredPokemons) => this.fetchFilteredPokemonDetails(filteredPokemons)) // Hilfsmethode aufrufen
+      );
+    }
+    
+    // Hilfsmethode für das Abrufen der Details der gefilterten Pokémon
+    private fetchFilteredPokemonDetails(filteredPokemons: any[]): Observable<Pokemon[]> {
+      return new Observable<Pokemon[]>((observer) => {
+        const pokemons: Pokemon[] = [];
+        let completedRequests = 0;
+    
+        filteredPokemons.forEach((pokemon: any) => {
+          this.fetchPokemonDetails(pokemon.url).subscribe({
+            next: (pokemonDetails) => {
+              pokemons.push(pokemonDetails);
+              completedRequests++;
+              if (completedRequests === filteredPokemons.length) {
+                observer.next(pokemons);
+                observer.complete();
+              }
+            },
+            error: (error) => observer.error(error),
+          });
+        });
+      });
+    }
+    
+
+
+
 }
