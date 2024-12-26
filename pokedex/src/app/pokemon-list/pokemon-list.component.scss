@@ -103,6 +103,8 @@
   margin: 20px 0;
 }
 
+
+
 .load-more button {
   padding: 10px 20px;
   font-size: 16px;
@@ -245,25 +247,38 @@
   height: 100%;
   border-radius: 4px;
 }
-
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% der Breite des Viewports */
+  height: 100vh; /* 100% der Höhe des Viewports */
+  //background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+  z-index: 999; /* Über dem Detail-Popup */
+}
 
 .pokemon-details {
   position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 400px;
+  top: 50%; /* Zentrieren */
+  left: 50%; /* Zentrieren */
+  transform: translate(-50%, -50%); /* Zentrieren */
+  width: 90vw; /* 90% der Breite des Viewports */
+  max-width: 400px; /* Maximale Breite von 400px */
+  max-height: 70vh; /* Maximale Höhe von 90vh */
+  overflow-y: auto; /* Scrollen, wenn der Inhalt zu groß ist */
   padding: 20px;
-  background: #f4f4f4;
+  background: #f4f4f4; 
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
   z-index: 1000;
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Flexbox für Inhalt */
   gap: 16px;
-  background-color: white;
-  border-radius: 40px;
+
+  /* Optional: Farbe für den Hintergrund */
+  background-color: white; 
+  border-radius: 40px; 
 }
 
 .arrow {
@@ -400,6 +415,11 @@
   background-color: rgba(255, 255, 255, 0.9);
 }
 /* ---------------------------------------------------- */
+
+
+
+
+
 
 /* Für kleinere Bildschirme */
 @media (max-width: 768px) {
