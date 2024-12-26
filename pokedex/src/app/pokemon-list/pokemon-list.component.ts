@@ -11,158 +11,153 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit, OnChanges {
-  @Input() searchQuery: string = ''; // Suchbegriff als Input
+  @Input() searchQuery: string = ''; // Search query input
 
   pokemons: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
   isLoading: boolean = false;
-  isSearching: boolean = false; // Status für Suchmodus
+  isSearching: boolean = false; // Status for searching mode
 
   errorMessage: string = '';
 
   pokemonStats: { name: string; value: number; color: string }[] = [];
 
+  /**
+   * Constructor to inject the PokemonService.
+   * @param pokemonService The service to fetch Pokemon data.
+   */
   constructor(private pokemonService: PokemonService) {}
 
+  /**
+   * Lifecycle hook that is called when the component is initialized.
+   */
   ngOnInit(): void {
     this.loadPokemons();
   }
 
+  /**
+   * Lifecycle hook that is called when input properties change.
+   * @param changes The changes detected in the input properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchQuery'] && changes['searchQuery'].currentValue !== changes['searchQuery'].previousValue) {
       const query = changes['searchQuery'].currentValue.trim().toLowerCase();
 
       if (!query) {
-        // Suchfeld ist leer: Ursprüngliche Pokémon-Liste laden
-        this.isSearching = false; // Suchmodus deaktivieren
-        this.pokemons = []; // Liste leeren, um doppelte Einträge zu vermeiden
-        this.pokemonService.resetOffset(); // Offset zurücksetzen
-        this.loadPokemons(); // Erste Pokémon laden
+        this.isSearching = false;
+        this.pokemons = [];
+        this.pokemonService.resetOffset();
+        this.loadPokemons();
       } else if (query.length >= 3) {
-        // Suchmodus aktivieren
         this.isSearching = true;
-        this.searchPokemon(query); // Suche starten
+        this.searchPokemon(query);
       } else {
-        alert('Bitte mindestens 3 Buchstaben eingeben!');
+        alert('Please enter at least 3 characters!');
       }
     }
   }
 
-  // Aufgerufen, wenn der Benutzer auf "Mehr laden" klickt
+  /**
+   * Called when the user clicks "Load More" button.
+   * Loads more Pokémon if not in search mode.
+   */
   onLoadMore() {
-    if (this.isSearching) return; // Keine neuen Pokémon laden, wenn im Suchmodus
+    if (this.isSearching) return;
 
-    this.isLoading = true; // Ladezustand aktivieren
-    this.pokemonService.updateOffset(); // Offset erhöhen
-    this.loadPokemons(); // Neue Pokémon laden
+    this.isLoading = true;
+    this.pokemonService.updateOffset();
+    this.loadPokemons();
   }
 
-  // Ursprüngliche Pokémon-Liste laden
-/*   loadPokemons() {
+  /**
+   * Loads the initial list of Pokémon.
+   */
+  loadPokemons() {
     this.isLoading = true;
-    this.errorMessage = ''; // Fehler zurücksetzen
+    this.errorMessage = '';
 
+    this.fetchPokemons();
+  }
+
+  /**
+   * Fetches Pokémon data from the service.
+   */
+  private fetchPokemons() {
     this.pokemonService.getPokemons().subscribe({
       next: (data: Pokemon[]) => {
-        if (data.length === 0) {
-          alert('Keine weiteren Pokémon verfügbar!');
-          this.isLoading = false;
-          return;
-        }
-
-        // Hinzufügen ohne Duplikate und Sortieren nach ID
-        this.pokemons = [
-          ...this.pokemons,
-          ...data.filter((newPokemon) =>
-            !this.pokemons.some((existing) => existing.id === newPokemon.id)
-          ),
-        ].sort((a, b) => a.id - b.id);
-
-        this.isLoading = false;
+        this.processPokemonData(data);
       },
       error: (error) => {
-        console.error('Fehler beim Laden der Pokémon:', error);
-        this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
+        console.error('Error loading Pokémon:', error);
+        this.errorMessage = 'There was an issue loading the Pokémon. Please try again later.';
         this.isLoading = false;
       },
     });
-  } */
-
-// Ursprüngliche Pokémon-Liste laden
-loadPokemons() {
-  this.isLoading = true;
-  this.errorMessage = ''; // Fehler zurücksetzen
-
-  this.fetchPokemons();
-}
-
-// API-Abfrage für Pokémon
-private fetchPokemons() {
-  this.pokemonService.getPokemons().subscribe({
-    next: (data: Pokemon[]) => {
-      this.processPokemonData(data); // Daten verarbeiten
-    },
-    error: (error) => {
-      console.error('Fehler beim Laden der Pokémon:', error);
-      this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
-      this.isLoading = false;
-    },
-  });
-}
-
-// Verarbeitung der empfangenen Pokémon-Daten
-private processPokemonData(data: Pokemon[]) {
-  if (data.length === 0) {
-    alert('Keine weiteren Pokémon verfügbar!');
-    this.isLoading = false;
-    return;
   }
 
-  // Hinzufügen ohne Duplikate und Sortieren nach ID
-  this.pokemons = [
-    ...this.pokemons,
-    ...data.filter((newPokemon) =>
-      !this.pokemons.some((existing) => existing.id === newPokemon.id)
-    ),
-  ].sort((a, b) => a.id - b.id);
+  /**
+   * Processes the received Pokémon data.
+   * @param data The Pokémon data to be processed.
+   */
+  private processPokemonData(data: Pokemon[]) {
+    if (data.length === 0) {
+      alert('No more Pokémon available!');
+      this.isLoading = false;
+      return;
+    }
 
-  this.isLoading = false;
-}
+    this.pokemons = [
+      ...this.pokemons,
+      ...data.filter((newPokemon) =>
+        !this.pokemons.some((existing) => existing.id === newPokemon.id)
+      ),
+    ].sort((a, b) => a.id - b.id);
 
+    this.isLoading = false;
+  }
 
-
-
-/* ----------------------------------------------------------- */
-  // Suche durchführen
+  /**
+   * Performs a search for Pokémon based on the query.
+   * @param searchQuery The search query to filter Pokémon by.
+   */
   searchPokemon(searchQuery: string) {
     this.pokemonService.searchPokemons(searchQuery).subscribe({
       next: (pokemons: Pokemon[]) => {
         if (pokemons.length > 0) {
-          this.pokemons = pokemons; // Suchergebnisse anzeigen
+          this.pokemons = pokemons;
         } else {
-          alert('Kein Pokémon gefunden!');
+          alert('No Pokémon found!');
         }
       },
       error: (error) => {
-        console.error('Fehler bei der Pokémon-Suche:', error);
-        alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
+        console.error('Error searching for Pokémon:', error);
+        alert('There was an issue with the search. Please try again later.');
       },
     });
   }
 
-  // Öffnen der Detailansicht
+  /**
+   * Shows the details of the selected Pokémon.
+   * @param pokemon The Pokémon whose details to show.
+   */
   showDetails(pokemon: Pokemon) {
     this.selectedPokemon = pokemon;
     this.setPokemonStats(pokemon);
   }
 
-  // Schließen der Detailansicht
+  /**
+   * Closes the details view.
+   * @param event The event object triggered by closing the details view.
+   */
   closeDetails(event: any) {
     event.stopPropagation();
     this.selectedPokemon = null;
   }
 
-  // Setzen der Pokémon-Statistiken
+  /**
+   * Sets the stats for the selected Pokémon.
+   * @param pokemon The Pokémon whose stats to set.
+   */
   setPokemonStats(pokemon: Pokemon) {
     this.pokemonStats = [
       { name: 'HP', value: pokemon.hp, color: '#ff6666' },
@@ -174,7 +169,10 @@ private processPokemonData(data: Pokemon[]) {
     ];
   }
 
-  // Navigieren zum vorherigen Pokémon
+  /**
+   * Navigates to the previous Pokémon.
+   * @param event The event object triggered by the action.
+   */
   prevPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;
@@ -185,7 +183,10 @@ private processPokemonData(data: Pokemon[]) {
     this.setPokemonStats(this.selectedPokemon);
   }
 
-  // Navigieren zum nächsten Pokémon
+  /**
+   * Navigates to the next Pokémon.
+   * @param event The event object triggered by the action.
+   */
   nextPokemon(event: Event) {
     event.stopPropagation();
     if (!this.selectedPokemon) return;

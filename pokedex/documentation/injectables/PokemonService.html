@@ -1,0 +1,1185 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pokedex documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">pokedex documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PokemonService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/pokemon.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for fetching and managing Pokémon data.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#apiUrl" >apiUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#limit" >limit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#offset" >offset</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchFilteredPokemonDetails" >fetchFilteredPokemonDetails</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchPokemonDetails" >fetchPokemonDetails</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchPokemonDetailsList" >fetchPokemonDetailsList</a>
+                            </li>
+                            <li>
+                                <a href="#getPokemonByName" >getPokemonByName</a>
+                            </li>
+                            <li>
+                                <a href="#getPokemons" >getPokemons</a>
+                            </li>
+                            <li>
+                                <a href="#resetOffset" >resetOffset</a>
+                            </li>
+                            <li>
+                                <a href="#searchPokemons" >searchPokemons</a>
+                            </li>
+                            <li>
+                                <a href="#updateOffset" >updateOffset</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: HttpClient)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/services/pokemon.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchFilteredPokemonDetails"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchFilteredPokemonDetails</b></span>
+                        <a href="#fetchFilteredPokemonDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchFilteredPokemonDetails(filteredPokemons: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Helper method for fetching details of filtered Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filteredPokemons</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The list of filtered Pokémon</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a list of Pokémon details</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchPokemonDetails"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchPokemonDetails</b></span>
+                        <a href="#fetchPokemonDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchPokemonDetails(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches details of a Pokémon using its URL.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>url</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The URL of the Pokémon details.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with the Pokémon details.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchPokemonDetailsList"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchPokemonDetailsList</b></span>
+                        <a href="#fetchPokemonDetailsList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchPokemonDetailsList(results: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches the details of a list of Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>results</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The list of Pokémon URLs to fetch.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a list of Pokémon details.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPokemonByName"></a>
+                    <span class="name">
+                        <span ><b>getPokemonByName</b></span>
+                        <a href="#getPokemonByName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPokemonByName(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches a single Pokémon by name.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The name of the Pokémon to fetch</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with the Pokémon details</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPokemons"></a>
+                    <span class="name">
+                        <span ><b>getPokemons</b></span>
+                        <a href="#getPokemons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPokemons()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches a list of Pokémon.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a list of Pokémon.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetOffset"></a>
+                    <span class="name">
+                        <span ><b>resetOffset</b></span>
+                        <a href="#resetOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetOffset()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resets the offset for pagination.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchPokemons"></a>
+                    <span class="name">
+                        <span ><b>searchPokemons</b></span>
+                        <a href="#searchPokemons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchPokemons(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="183"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Searches for Pokémon based on a query string.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>query</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The search query</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Pokemon.html" target="_self" >Observable&lt;Pokemon[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An observable with a list of matching Pokémon</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateOffset"></a>
+                    <span class="name">
+                        <span ><b>updateOffset</b></span>
+                        <a href="#updateOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateOffset()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/services/pokemon.service.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the offset for pagination.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="apiUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>apiUrl</b></span>
+                        <a href="#apiUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;https://pokeapi.co/api/v2/pokemon&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/pokemon.service.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limit"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>limit</b></span>
+                        <a href="#limit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>24</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/services/pokemon.service.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="offset"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>offset</b></span>
+                        <a href="#offset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/services/pokemon.service.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Observable, concatMap, map } from &#x27;rxjs&#x27;;
+import { Pokemon } from &#x27;../models/pokemon&#x27;;
+
+
+
+/**
+ * Service for fetching and managing Pokémon data.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+
+export class PokemonService {
+  private apiUrl &#x3D; &#x27;https://pokeapi.co/api/v2/pokemon&#x27;;
+  private offset &#x3D; 0; // Startpunkt für Pagination
+  private limit &#x3D; 24; // Anzahl der Pokémon pro Anfrage
+
+  constructor(private http: HttpClient) {}
+
+   /**
+   * Fetches details of a Pokémon using its URL.
+   * @param url The URL of the Pokémon details.
+   * @returns An observable with the Pokémon details.
+   */
+  private fetchPokemonDetails(url: string): Observable&lt;Pokemon&gt; {
+    return this.http.get&lt;any&gt;(url).pipe(
+      map((details) &#x3D;&gt; ({
+        id: details.id,
+        name: details.name,
+        image: details.sprites.other[&#x27;official-artwork&#x27;].front_default,
+        type: details.types[0]?.type.name || &#x27;Unknown&#x27;,
+        hp: details.stats[0]?.base_stat || 0,
+        attack: details.stats[1]?.base_stat || 0,
+        defense: details.stats[2]?.base_stat || 0,
+        spAtk: details.stats[3]?.base_stat || 0,
+        spDef: details.stats[4]?.base_stat || 0,
+        speed: details.stats[5]?.base_stat || 0,
+      }))
+    );
+  }
+
+/*   getPokemons(): Observable&lt;Pokemon[]&gt; {
+    const url &#x3D; &#x60;${this.apiUrl}?offset&#x3D;${this.offset}&amp;limit&#x3D;${this.limit}&#x60;;
+
+    return this.http.get&lt;any&gt;(url).pipe(
+        map((response) &#x3D;&gt; response.results),
+        concatMap((results) &#x3D;&gt; {
+            return new Observable&lt;Pokemon[]&gt;((observer) &#x3D;&gt; {
+                const pokemons: Pokemon[] &#x3D; [];
+                let completedRequests &#x3D; 0;
+
+                results.forEach((pokemon: any) &#x3D;&gt; {
+                    this.fetchPokemonDetails(pokemon.url).subscribe({
+                        next: (pokemonDetails) &#x3D;&gt; {
+                            pokemons.push(pokemonDetails);
+                            completedRequests++;
+                            if (completedRequests &#x3D;&#x3D;&#x3D; results.length) {
+                                // Sortiere Pokémon nach ID, bevor sie zurückgegeben werden
+                                observer.next(pokemons.sort((a, b) &#x3D;&gt; a.id - b.id));
+                                observer.complete();
+                            }
+                        },
+                        error: (error) &#x3D;&gt; observer.error(error),
+                    });
+                });
+            });
+        })
+    );
+} */
+
+// Hauptmethode, die eine Observable mit Pokémon zurückgibt
+
+  /**
+   * Fetches a list of Pokémon.
+   * @returns An observable with a list of Pokémon.
+   */
+
+getPokemons(): Observable&lt;Pokemon[]&gt; {
+  const url &#x3D; &#x60;${this.apiUrl}?offset&#x3D;${this.offset}&amp;limit&#x3D;${this.limit}&#x60;;
+
+  return this.http.get&lt;any&gt;(url).pipe(
+    map((response) &#x3D;&gt; response.results),
+    concatMap((results) &#x3D;&gt; this.fetchPokemonDetailsList(results)) // Details abrufen und verarbeiten
+  );
+}
+
+ /**
+   * Fetches the details of a list of Pokémon.
+   * @param results The list of Pokémon URLs to fetch.
+   * @returns An observable with a list of Pokémon details.
+   */
+private fetchPokemonDetailsList(results: any[]): Observable&lt;Pokemon[]&gt; {
+  return new Observable&lt;Pokemon[]&gt;((observer) &#x3D;&gt; {
+    const pokemons: Pokemon[] &#x3D; [];
+    let completedRequests &#x3D; 0;
+
+    results.forEach((pokemon: any) &#x3D;&gt; {
+      this.fetchPokemonDetails(pokemon.url).subscribe({
+        next: (pokemonDetails) &#x3D;&gt; {
+          pokemons.push(pokemonDetails);
+          completedRequests++;
+          if (completedRequests &#x3D;&#x3D;&#x3D; results.length) {
+            // Sortiere Pokémon nach ID, bevor sie zurückgegeben werden
+            observer.next(pokemons.sort((a, b) &#x3D;&gt; a.id - b.id));
+            observer.complete();
+          }
+        },
+        error: (error) &#x3D;&gt; observer.error(error),
+      });
+    });
+  });
+}
+
+
+
+/* ----------------------------------------------------- */
+
+/**
+ * Fetches a single Pokémon by name.
+ * @param {string} name - The name of the Pokémon to fetch
+ * @returns {Observable&lt;Pokemon&gt;} An observable with the Pokémon details
+ */
+  getPokemonByName(name: string): Observable&lt;Pokemon&gt; {
+    const url &#x3D; &#x60;${this.apiUrl}/${name.toLowerCase()}&#x60;;
+
+    return this.fetchPokemonDetails(url);
+  }
+
+/**
+ * Updates the offset for pagination.
+ */
+  updateOffset() {
+    this.offset +&#x3D; this.limit;
+  }
+
+
+/**
+ * Resets the offset for pagination.
+ */
+  resetOffset() {
+    this.offset &#x3D; 0; // Offset zurücksetzen
+}
+
+/*   searchPokemons(query: string): Observable&lt;Pokemon[]&gt; {
+    const url &#x3D; &#x60;https://pokeapi.co/api/v2/pokemon?limit&#x3D;1000&#x60;; // Alle Pokémon laden
+
+    return this.http.get&lt;any&gt;(url).pipe(
+      map((response) &#x3D;&gt; response.results),
+      map((results: any[]) &#x3D;&gt;
+        results.filter((pokemon) &#x3D;&gt; pokemon.name.startsWith(query)) // Filter in der API-Antwort
+      ),
+      concatMap((filteredPokemons) &#x3D;&gt; {
+        return new Observable&lt;Pokemon[]&gt;((observer) &#x3D;&gt; {
+          const pokemons: Pokemon[] &#x3D; [];
+          let completedRequests &#x3D; 0;
+
+          filteredPokemons.forEach((pokemon: any) &#x3D;&gt; {
+            this.fetchPokemonDetails(pokemon.url).subscribe({
+              next: (pokemonDetails) &#x3D;&gt; {
+                pokemons.push(pokemonDetails);
+                completedRequests++;
+                if (completedRequests &#x3D;&#x3D;&#x3D; filteredPokemons.length) {
+                  observer.next(pokemons);
+                  observer.complete();
+                }
+              },
+              error: (error) &#x3D;&gt; observer.error(error),
+            });
+          });
+        });
+      })
+    );
+  } */
+
+
+    /**
+ * Searches for Pokémon based on a query string.
+ * @param {string} query - The search query
+ * @returns {Observable&lt;Pokemon[]&gt;} An observable with a list of matching Pokémon
+ */
+    searchPokemons(query: string): Observable&lt;Pokemon[]&gt; {
+      const url &#x3D; &#x60;https://pokeapi.co/api/v2/pokemon?limit&#x3D;1000&#x60;; // Alle Pokémon laden
+    
+      return this.http.get&lt;any&gt;(url).pipe(
+        map((response) &#x3D;&gt; response.results),
+        map((results: any[]) &#x3D;&gt; 
+          results.filter((pokemon) &#x3D;&gt; pokemon.name.startsWith(query)) // Filter in der API-Antwort
+        ),
+        concatMap((filteredPokemons) &#x3D;&gt; this.fetchFilteredPokemonDetails(filteredPokemons)) // Hilfsmethode aufrufen
+      );
+    }
+   /**
+ * Helper method for fetching details of filtered Pokémon.
+ * @param {any[]} filteredPokemons - The list of filtered Pokémon
+ * @returns {Observable&lt;Pokemon[]&gt;} An observable with a list of Pokémon details
+ * @private
+ */
+    private fetchFilteredPokemonDetails(filteredPokemons: any[]): Observable&lt;Pokemon[]&gt; {
+      return new Observable&lt;Pokemon[]&gt;((observer) &#x3D;&gt; {
+        const pokemons: Pokemon[] &#x3D; [];
+        let completedRequests &#x3D; 0;
+    
+        filteredPokemons.forEach((pokemon: any) &#x3D;&gt; {
+          this.fetchPokemonDetails(pokemon.url).subscribe({
+            next: (pokemonDetails) &#x3D;&gt; {
+              pokemons.push(pokemonDetails);
+              completedRequests++;
+              if (completedRequests &#x3D;&#x3D;&#x3D; filteredPokemons.length) {
+                observer.next(pokemons);
+                observer.complete();
+              }
+            },
+            error: (error) &#x3D;&gt; observer.error(error),
+          });
+        });
+      });
+    }
+    
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PokemonService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

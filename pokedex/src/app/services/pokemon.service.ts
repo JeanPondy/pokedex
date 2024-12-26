@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, concatMap, map } from 'rxjs';
 import { Pokemon } from '../models/pokemon';
 
+
+
+/**
+ * Service for fetching and managing Pokémon data.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +19,11 @@ export class PokemonService {
 
   constructor(private http: HttpClient) {}
 
-  // Hilfsfunktion zum Abrufen und Mappen von Pokémon-Details
+   /**
+   * Fetches details of a Pokémon using its URL.
+   * @param url The URL of the Pokémon details.
+   * @returns An observable with the Pokémon details.
+   */
   private fetchPokemonDetails(url: string): Observable<Pokemon> {
     return this.http.get<any>(url).pipe(
       map((details) => ({
@@ -62,6 +71,12 @@ export class PokemonService {
 } */
 
 // Hauptmethode, die eine Observable mit Pokémon zurückgibt
+
+  /**
+   * Fetches a list of Pokémon.
+   * @returns An observable with a list of Pokémon.
+   */
+
 getPokemons(): Observable<Pokemon[]> {
   const url = `${this.apiUrl}?offset=${this.offset}&limit=${this.limit}`;
 
@@ -71,7 +86,11 @@ getPokemons(): Observable<Pokemon[]> {
   );
 }
 
-// Methode zum Abrufen der Liste von Pokémon-Details
+ /**
+   * Fetches the details of a list of Pokémon.
+   * @param results The list of Pokémon URLs to fetch.
+   * @returns An observable with a list of Pokémon details.
+   */
 private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
   return new Observable<Pokemon[]>((observer) => {
     const pokemons: Pokemon[] = [];
@@ -97,19 +116,29 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
 
 
 /* ----------------------------------------------------- */
-  // Methode, um ein einzelnes Pokémon per Namen zu laden
+
+/**
+ * Fetches a single Pokémon by name.
+ * @param {string} name - The name of the Pokémon to fetch
+ * @returns {Observable<Pokemon>} An observable with the Pokémon details
+ */
   getPokemonByName(name: string): Observable<Pokemon> {
     const url = `${this.apiUrl}/${name.toLowerCase()}`;
 
     return this.fetchPokemonDetails(url);
   }
 
-
+/**
+ * Updates the offset for pagination.
+ */
   updateOffset() {
     this.offset += this.limit;
   }
 
 
+/**
+ * Resets the offset for pagination.
+ */
   resetOffset() {
     this.offset = 0; // Offset zurücksetzen
 }
@@ -145,6 +174,12 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
     );
   } */
 
+
+    /**
+ * Searches for Pokémon based on a query string.
+ * @param {string} query - The search query
+ * @returns {Observable<Pokemon[]>} An observable with a list of matching Pokémon
+ */
     searchPokemons(query: string): Observable<Pokemon[]> {
       const url = `https://pokeapi.co/api/v2/pokemon?limit=1000`; // Alle Pokémon laden
     
@@ -156,8 +191,12 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
         concatMap((filteredPokemons) => this.fetchFilteredPokemonDetails(filteredPokemons)) // Hilfsmethode aufrufen
       );
     }
-    
-    // Hilfsmethode für das Abrufen der Details der gefilterten Pokémon
+   /**
+ * Helper method for fetching details of filtered Pokémon.
+ * @param {any[]} filteredPokemons - The list of filtered Pokémon
+ * @returns {Observable<Pokemon[]>} An observable with a list of Pokémon details
+ * @private
+ */
     private fetchFilteredPokemonDetails(filteredPokemons: any[]): Observable<Pokemon[]> {
       return new Observable<Pokemon[]>((observer) => {
         const pokemons: Pokemon[] = [];
@@ -179,7 +218,4 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
       });
     }
     
-
-
-
 }

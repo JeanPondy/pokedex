@@ -1,0 +1,2352 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pokedex documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">pokedex documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PokemonListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pokemon-list/pokemon-list.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnChanges</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-pokemon-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./pokemon-list.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./pokemon-list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isSearching" >isSearching</a>
+                            </li>
+                            <li>
+                                <a href="#pokemons" >pokemons</a>
+                            </li>
+                            <li>
+                                <a href="#pokemonStats" >pokemonStats</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPokemon" >selectedPokemon</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeDetails" >closeDetails</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchPokemons" >fetchPokemons</a>
+                            </li>
+                            <li>
+                                <a href="#loadPokemons" >loadPokemons</a>
+                            </li>
+                            <li>
+                                <a href="#nextPokemon" >nextPokemon</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onLoadMore" >onLoadMore</a>
+                            </li>
+                            <li>
+                                <a href="#prevPokemon" >prevPokemon</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#processPokemonData" >processPokemonData</a>
+                            </li>
+                            <li>
+                                <a href="#searchPokemon" >searchPokemon</a>
+                            </li>
+                            <li>
+                                <a href="#setPokemonStats" >setPokemonStats</a>
+                            </li>
+                            <li>
+                                <a href="#showDetails" >showDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#searchQuery" >searchQuery</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(pokemonService: <a href="../injectables/PokemonService.html" target="_self">PokemonService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor to inject the PokemonService.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>pokemonService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PokemonService.html" target="_self" >PokemonService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>The service to fetch Pokemon data.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchQuery"></a>
+                        <b>searchQuery</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDetails"></a>
+                    <span class="name">
+                        <span ><b>closeDetails</b></span>
+                        <a href="#closeDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDetails(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the details view.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The event object triggered by closing the details view.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchPokemons"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchPokemons</b></span>
+                        <a href="#fetchPokemons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fetchPokemons()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches Pokémon data from the service.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadPokemons"></a>
+                    <span class="name">
+                        <span ><b>loadPokemons</b></span>
+                        <a href="#loadPokemons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadPokemons()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Loads the initial list of Pokémon.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextPokemon"></a>
+                    <span class="name">
+                        <span ><b>nextPokemon</b></span>
+                        <a href="#nextPokemon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextPokemon(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to the next Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The event object triggered by the action.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Lifecycle hook that is called when input properties change.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The changes detected in the input properties.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Lifecycle hook that is called when the component is initialized.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLoadMore"></a>
+                    <span class="name">
+                        <span ><b>onLoadMore</b></span>
+                        <a href="#onLoadMore"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onLoadMore()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Called when the user clicks &quot;Load More&quot; button.
+Loads more Pokémon if not in search mode.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevPokemon"></a>
+                    <span class="name">
+                        <span ><b>prevPokemon</b></span>
+                        <a href="#prevPokemon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevPokemon(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to the previous Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The event object triggered by the action.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processPokemonData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>processPokemonData</b></span>
+                        <a href="#processPokemonData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processPokemonData(data: <a href="../interfaces/Pokemon.html" target="_self">Pokemon[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Processes the received Pokémon data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Pokemon.html" target="_self" >Pokemon[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The Pokémon data to be processed.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchPokemon"></a>
+                    <span class="name">
+                        <span ><b>searchPokemon</b></span>
+                        <a href="#searchPokemon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchPokemon(searchQuery: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Performs a search for Pokémon based on the query.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchQuery</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The search query to filter Pokémon by.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setPokemonStats"></a>
+                    <span class="name">
+                        <span ><b>setPokemonStats</b></span>
+                        <a href="#setPokemonStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setPokemonStats(pokemon: <a href="../interfaces/Pokemon.html" target="_self">Pokemon</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sets the stats for the selected Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pokemon</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Pokemon.html" target="_self" >Pokemon</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The Pokémon whose stats to set.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDetails"></a>
+                    <span class="name">
+                        <span ><b>showDetails</b></span>
+                        <a href="#showDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showDetails(pokemon: <a href="../interfaces/Pokemon.html" target="_self">Pokemon</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows the details of the selected Pokémon.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pokemon</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Pokemon.html" target="_self" >Pokemon</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The Pokémon whose details to show.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSearching"></a>
+                    <span class="name">
+                        <span ><b>isSearching</b></span>
+                        <a href="#isSearching"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pokemons"></a>
+                    <span class="name">
+                        <span ><b>pokemons</b></span>
+                        <a href="#pokemons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Pokemon.html" target="_self" >Pokemon[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pokemonStats"></a>
+                    <span class="name">
+                        <span ><b>pokemonStats</b></span>
+                        <a href="#pokemonStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPokemon"></a>
+                    <span class="name">
+                        <span ><b>selectedPokemon</b></span>
+                        <a href="#selectedPokemon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Pokemon.html" target="_self" >Pokemon | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pokemon-list/pokemon-list.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnChanges, SimpleChanges, OnInit } from &#x27;@angular/core&#x27;;
+import { PokemonService } from &#x27;../services/pokemon.service&#x27;;
+import { Pokemon } from &#x27;../models/pokemon&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-pokemon-list&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: &#x27;./pokemon-list.component.html&#x27;,
+  styleUrls: [&#x27;./pokemon-list.component.scss&#x27;],
+})
+export class PokemonListComponent implements OnInit, OnChanges {
+  @Input() searchQuery: string &#x3D; &#x27;&#x27;; // Search query input
+
+  pokemons: Pokemon[] &#x3D; [];
+  selectedPokemon: Pokemon | null &#x3D; null;
+  isLoading: boolean &#x3D; false;
+  isSearching: boolean &#x3D; false; // Status for searching mode
+
+  errorMessage: string &#x3D; &#x27;&#x27;;
+
+  pokemonStats: { name: string; value: number; color: string }[] &#x3D; [];
+
+  /**
+   * Constructor to inject the PokemonService.
+   * @param pokemonService The service to fetch Pokemon data.
+   */
+  constructor(private pokemonService: PokemonService) {}
+
+  /**
+   * Lifecycle hook that is called when the component is initialized.
+   */
+  ngOnInit(): void {
+    this.loadPokemons();
+  }
+
+  /**
+   * Lifecycle hook that is called when input properties change.
+   * @param changes The changes detected in the input properties.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes[&#x27;searchQuery&#x27;] &amp;&amp; changes[&#x27;searchQuery&#x27;].currentValue !&#x3D;&#x3D; changes[&#x27;searchQuery&#x27;].previousValue) {
+      const query &#x3D; changes[&#x27;searchQuery&#x27;].currentValue.trim().toLowerCase();
+
+      if (!query) {
+        this.isSearching &#x3D; false;
+        this.pokemons &#x3D; [];
+        this.pokemonService.resetOffset();
+        this.loadPokemons();
+      } else if (query.length &gt;&#x3D; 3) {
+        this.isSearching &#x3D; true;
+        this.searchPokemon(query);
+      } else {
+        alert(&#x27;Please enter at least 3 characters!&#x27;);
+      }
+    }
+  }
+
+  /**
+   * Called when the user clicks &quot;Load More&quot; button.
+   * Loads more Pokémon if not in search mode.
+   */
+  onLoadMore() {
+    if (this.isSearching) return;
+
+    this.isLoading &#x3D; true;
+    this.pokemonService.updateOffset();
+    this.loadPokemons();
+  }
+
+  /**
+   * Loads the initial list of Pokémon.
+   */
+  loadPokemons() {
+    this.isLoading &#x3D; true;
+    this.errorMessage &#x3D; &#x27;&#x27;;
+
+    this.fetchPokemons();
+  }
+
+  /**
+   * Fetches Pokémon data from the service.
+   */
+  private fetchPokemons() {
+    this.pokemonService.getPokemons().subscribe({
+      next: (data: Pokemon[]) &#x3D;&gt; {
+        this.processPokemonData(data);
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error loading Pokémon:&#x27;, error);
+        this.errorMessage &#x3D; &#x27;There was an issue loading the Pokémon. Please try again later.&#x27;;
+        this.isLoading &#x3D; false;
+      },
+    });
+  }
+
+  /**
+   * Processes the received Pokémon data.
+   * @param data The Pokémon data to be processed.
+   */
+  private processPokemonData(data: Pokemon[]) {
+    if (data.length &#x3D;&#x3D;&#x3D; 0) {
+      alert(&#x27;No more Pokémon available!&#x27;);
+      this.isLoading &#x3D; false;
+      return;
+    }
+
+    this.pokemons &#x3D; [
+      ...this.pokemons,
+      ...data.filter((newPokemon) &#x3D;&gt;
+        !this.pokemons.some((existing) &#x3D;&gt; existing.id &#x3D;&#x3D;&#x3D; newPokemon.id)
+      ),
+    ].sort((a, b) &#x3D;&gt; a.id - b.id);
+
+    this.isLoading &#x3D; false;
+  }
+
+  /**
+   * Performs a search for Pokémon based on the query.
+   * @param searchQuery The search query to filter Pokémon by.
+   */
+  searchPokemon(searchQuery: string) {
+    this.pokemonService.searchPokemons(searchQuery).subscribe({
+      next: (pokemons: Pokemon[]) &#x3D;&gt; {
+        if (pokemons.length &gt; 0) {
+          this.pokemons &#x3D; pokemons;
+        } else {
+          alert(&#x27;No Pokémon found!&#x27;);
+        }
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error searching for Pokémon:&#x27;, error);
+        alert(&#x27;There was an issue with the search. Please try again later.&#x27;);
+      },
+    });
+  }
+
+  /**
+   * Shows the details of the selected Pokémon.
+   * @param pokemon The Pokémon whose details to show.
+   */
+  showDetails(pokemon: Pokemon) {
+    this.selectedPokemon &#x3D; pokemon;
+    this.setPokemonStats(pokemon);
+  }
+
+  /**
+   * Closes the details view.
+   * @param event The event object triggered by closing the details view.
+   */
+  closeDetails(event: any) {
+    event.stopPropagation();
+    this.selectedPokemon &#x3D; null;
+  }
+
+  /**
+   * Sets the stats for the selected Pokémon.
+   * @param pokemon The Pokémon whose stats to set.
+   */
+  setPokemonStats(pokemon: Pokemon) {
+    this.pokemonStats &#x3D; [
+      { name: &#x27;HP&#x27;, value: pokemon.hp, color: &#x27;#ff6666&#x27; },
+      { name: &#x27;Attack&#x27;, value: pokemon.attack, color: &#x27;#ffcc00&#x27; },
+      { name: &#x27;Defense&#x27;, value: pokemon.defense, color: &#x27;#6699ff&#x27; },
+      { name: &#x27;Sp. Atk&#x27;, value: pokemon.spAtk, color: &#x27;#ff80ff&#x27; },
+      { name: &#x27;Sp. Def&#x27;, value: pokemon.spDef, color: &#x27;#99ff99&#x27; },
+      { name: &#x27;Speed&#x27;, value: pokemon.speed, color: &#x27;#ff6600&#x27; },
+    ];
+  }
+
+  /**
+   * Navigates to the previous Pokémon.
+   * @param event The event object triggered by the action.
+   */
+  prevPokemon(event: Event) {
+    event.stopPropagation();
+    if (!this.selectedPokemon) return;
+
+    const currentIndex &#x3D; this.pokemons.indexOf(this.selectedPokemon);
+    const prevIndex &#x3D; (currentIndex - 1 + this.pokemons.length) % this.pokemons.length;
+    this.selectedPokemon &#x3D; this.pokemons[prevIndex];
+    this.setPokemonStats(this.selectedPokemon);
+  }
+
+  /**
+   * Navigates to the next Pokémon.
+   * @param event The event object triggered by the action.
+   */
+  nextPokemon(event: Event) {
+    event.stopPropagation();
+    if (!this.selectedPokemon) return;
+
+    const currentIndex &#x3D; this.pokemons.indexOf(this.selectedPokemon);
+    const nextIndex &#x3D; (currentIndex + 1) % this.pokemons.length;
+    this.selectedPokemon &#x3D; this.pokemons[nextIndex];
+    this.setPokemonStats(this.selectedPokemon);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
+  &lt;!-- Pokémon-Anzeige --&gt;
+  &lt;div *ngIf&#x3D;&quot;pokemons.length &gt; 0; else noData&quot;&gt;
+    &lt;div class&#x3D;&quot;pokemon-grid&quot;&gt;
+      &lt;div
+        *ngFor&#x3D;&quot;let pokemon of pokemons&quot;
+        class&#x3D;&quot;pokemon-card {{ pokemon.type }}&quot;
+        (click)&#x3D;&quot;showDetails(pokemon)&quot;
+      &gt;
+        &lt;h3&gt;{{ pokemon.name | titlecase }}&lt;/h3&gt;
+        &lt;img [src]&#x3D;&quot;pokemon.image&quot; [alt]&#x3D;&quot;pokemon.name&quot; /&gt;
+        &lt;p&gt;Typ: {{ pokemon.type | titlecase }}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Keine Daten --&gt;
+  &lt;ng-template #noData&gt;
+    &lt;p&gt;Keine Pokémon gefunden.&lt;/p&gt;
+  &lt;/ng-template&gt;
+
+  &lt;!-- Lade-Button --&gt;
+  &lt;div class&#x3D;&quot;load-more&quot;&gt;
+    &lt;button (click)&#x3D;&quot;onLoadMore()&quot; [disabled]&#x3D;&quot;isLoading || isSearching&quot;&gt;
+      Mehr laden
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Detail-Popup --&gt;
+  &lt;div *ngIf&#x3D;&quot;selectedPokemon&quot; class&#x3D;&quot;overlay&quot; (click)&#x3D;&quot;closeDetails($event)&quot;&gt;
+    &lt;div
+      class&#x3D;&quot;pokemon-details {{ selectedPokemon.type }}&quot;
+      (click)&#x3D;&quot;$event.stopPropagation()&quot;
+    &gt;
+      &lt;!-- Linker Pfeil --&gt;
+      &lt;button class&#x3D;&quot;arrow left&quot; (click)&#x3D;&quot;prevPokemon($event)&quot;&gt;❮&lt;/button&gt;
+
+      &lt;!-- Detailbereich --&gt;
+      &lt;div class&#x3D;&quot;details-content&quot;&gt;
+        &lt;div class&#x3D;&quot;details-header&quot;&gt;
+          &lt;h3&gt;{{ selectedPokemon.name | titlecase }}&lt;/h3&gt;
+          &lt;p&gt;{{ selectedPokemon.type | titlecase }}&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Bildbereich --&gt;
+        &lt;div class&#x3D;&quot;pokemon-img-container&quot;&gt;
+          &lt;img
+            [src]&#x3D;&quot;selectedPokemon.image&quot;
+            [alt]&#x3D;&quot;selectedPokemon.name&quot;
+            class&#x3D;&quot;pokemon-img-detail&quot;
+          /&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Statistiken des Pokémon mit Fortschrittsbalken --&gt;
+        &lt;div class&#x3D;&quot;stats&quot;&gt;
+          &lt;div *ngFor&#x3D;&quot;let stat of pokemonStats&quot; class&#x3D;&quot;stat-item&quot;&gt;
+            &lt;p&gt;
+              &lt;strong&gt;{{ stat.name }}:&lt;/strong&gt; {{ stat.value }}
+            &lt;/p&gt;
+            &lt;div class&#x3D;&quot;progress-bar&quot;&gt;
+              &lt;div
+                class&#x3D;&quot;progress&quot;
+                [style.width]&#x3D;&quot;stat.value + &#x27;%&#x27;&quot;
+                [style.background-color]&#x3D;&quot;stat.color&quot;
+              &gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- Typ des Pokémon --&gt;
+        &lt;div class&#x3D;&quot;Schließen-btn&quot;&gt;
+          &lt;button (click)&#x3D;&quot;closeDetails($event)&quot;&gt;Schließen&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Rechter Pfeil --&gt;
+      &lt;button class&#x3D;&quot;arrow right&quot; (click)&#x3D;&quot;nextPokemon($event)&quot;&gt;❯&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./pokemon-list.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 24px;
+  margin: 20px 16px;
+}
+
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+  gap: 8px;
+
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Hover-Effekt */
+  &amp;:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Typenabhängige Farben */
+  &amp;.fire {
+    background-color: #f08030;
+  }
+  &amp;.water {
+    background-color: #6890f0;
+  }
+  &amp;.grass {
+    background-color: #78c850;
+  }
+  &amp;.electric {
+    background-color: #f8d030;
+  }
+  &amp;.psychic {
+    background-color: #f85888;
+  }
+  &amp;.ice {
+    background-color: #98d8d8;
+  }
+  &amp;.dragon {
+    background-color: #7038f8;
+  }
+  &amp;.dark {
+    background-color: #705848;
+  }
+  &amp;.fairy {
+    background-color: #ee99ac;
+  }
+  &amp;.normal {
+    background-color: #a8a878;
+  }
+  &amp;.fighting {
+    background-color: #c03028;
+  }
+  &amp;.flying {
+    background-color: #a890f0;
+  }
+  &amp;.poison {
+    background-color: #a040a0;
+  }
+  &amp;.ground {
+    background-color: #e0c068;
+  }
+  &amp;.rock {
+    background-color: #b8a038;
+  }
+  &amp;.bug {
+    background-color: #a8b820;
+  }
+  &amp;.ghost {
+    background-color: #705898;
+  }
+  &amp;.steel {
+    background-color: #b8b8d0;
+  }
+
+  /* Fallback für unbekannte Typen */
+  &amp;.unknown {
+    background-color: #cccccc;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 8px;
+ 
+  }
+}
+
+.load-more {
+  margin: 20px 0;
+}
+
+
+
+.load-more button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more button:hover {
+  background-color: #218838;
+}
+
+.load-more button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+.pokemon-details {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 320px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  border-radius: 40px;
+ 
+}
+
+.pokemon-details .details-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  color: white;
+
+  h3{
+    margin-top: 0px;
+    font-size: 60px;
+  }
+
+  p{
+    margin-top: -44px;
+  }
+}
+
+.pokemon-details button {
+  background-color: rgb(228,30,37);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: -60px;
+}
+
+.pokemon-details button:hover {
+  background-color: rgb(232, 74, 79);
+}
+
+/* Stil für das Pokémon-Bild */
+.pokemon-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pokemon-img-detail {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  z-index: 99;
+  margin-top: -20px;
+}
+
+/* Name und Typ des Pokémon */
+.Schließen-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 60px;
+  font-size: 24px;
+  color: white;
+}
+
+.name-type-pos h4 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.name-type-pos p {
+  font-size: 20px;
+}
+
+/* Statistiken mit Fortschrittsbalken */
+.stats {
+  text-align: left;
+  font-size: 14px;
+  margin-top: -36px;
+  
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  margin-left: -20px;
+  padding: 20px;
+  border-radius: 40px;
+ 
+
+}
+
+.stats .stat-item {
+
+  margin-bottom: 15px;
+}
+
+.stats p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Fortschrittsbalken */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow-x: hidden;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 4px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% der Breite des Viewports */
+  height: 100vh; /* 100% der Höhe des Viewports */
+  //background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+  z-index: 999; /* Über dem Detail-Popup */
+}
+
+.pokemon-details {
+  position: fixed;
+  top: 50%; /* Zentrieren */
+  left: 50%; /* Zentrieren */
+  transform: translate(-50%, -50%); /* Zentrieren */
+  width: 90vw; /* 90% der Breite des Viewports */
+  max-width: 400px; /* Maximale Breite von 400px */
+  max-height: 70vh; /* Maximale Höhe von 90vh */
+  overflow-y: auto; /* Scrollen, wenn der Inhalt zu groß ist */
+  padding: 20px;
+  background: #f4f4f4; 
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column; /* Flexbox für Inhalt */
+  gap: 16px;
+
+  /* Optional: Farbe für den Hintergrund */
+  background-color: white; 
+  border-radius: 40px; 
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.arrow.left {
+  left: -50px;
+}
+
+.arrow.right {
+  right: -50px;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.details-content {
+  flex-grow: 1;
+}
+
+.pokemon-details.fire {
+  background-color: #f08030;
+}
+
+.pokemon-details.water {
+  background-color: #6890f0;
+}
+
+.pokemon-details.grass {
+  background-color: #78c850;
+}
+
+.pokemon-details.electric {
+  background-color: #f8d030;
+}
+
+.pokemon-details.psychic {
+  background-color: #f85888;
+}
+
+.pokemon-details.ice {
+  background-color: #98d8d8;
+}
+
+.pokemon-details.dragon {
+  background-color: #7038f8;
+}
+
+.pokemon-details.dark {
+  background-color: #705848;
+}
+
+.pokemon-details.fairy {
+  background-color: #ee99ac;
+}
+
+.pokemon-details.normal {
+  background-color: #a8a878;
+}
+
+.pokemon-details.fighting {
+  background-color: #c03028;
+}
+
+.pokemon-details.flying {
+  background-color: #a890f0;
+}
+
+.pokemon-details.poison {
+  background-color: #a040a0;
+}
+
+.pokemon-details.ground {
+  background-color: #e0c068;
+}
+
+.pokemon-details.rock {
+  background-color: #b8a038;
+}
+
+.pokemon-details.bug {
+  background-color: #a8b820;
+}
+
+.pokemon-details.ghost {
+  background-color: #705898;
+}
+
+.pokemon-details.steel {
+  background-color: #b8b8d0;
+}
+
+.pokemon-details.unknown {
+  background-color: #cccccc;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+/* ---------------------------------------------------- */
+
+
+
+
+
+
+/* Für kleinere Bildschirme */
+@media (max-width: 768px) {
+  .pokemon-details {
+   
+    padding: 15px;
+  }
+
+  .stats {
+    width: 100%; /* 100% Breite auf kleineren Geräten */
+    max-width: 97%;
+    height: 270px;
+    margin-left: -14px;
+    margin-top: -32px;;
+
+  }
+
+  .stats p {
+    font-size: 12px; /* Kleinere Schriftgröße auf mobilen Geräten */
+  }
+
+  .pokemon-img-container {
+    img {
+      max-height: 200px; /* Bildgröße anpassen */
+    }
+  }
+  .pokemon-details button {
+    background-color: rgb(228,30,37);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: -78px;
+  }
+  .Schließen-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 70px;
+    font-size: 24px;
+    color: white;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .pokemon-details {
+    width: 90%;
+   width: 290px;
+   margin-top: 30px;
+    padding: 15px;
+    height: 600px;
+    .details-header{
+      h3{
+        font-size: 40px;
+      }
+      p{
+        margin-top: -32px;
+      }
+    }
+  }
+
+  .stats {
+    width: 100%; /* 100% Breite auf kleineren Geräten */
+    max-width: 96%;
+    margin-top: -20px;
+    height: 250px;
+
+  }
+
+  .stats p {
+    font-size: 12px; /* Kleinere Schriftgröße auf mobilen Geräten */
+  }
+
+  .pokemon-img-container {
+    img {
+      max-height: 200px; /* Bildgröße anpassen */
+      max-width: 200px;
+    }
+  }
+  .pokemon-details button {
+    background-color: rgb(228,30,37);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: -70px;
+  }
+  .Schließen-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 60px;
+    font-size: 24px;
+    color: white;
+  }
+
+}
+
+
+@media (max-width: 350px) {
+  .pokemon-details {
+    width: 90%;
+   width: 270px;
+   margin-top: 40px;
+    padding: 15px;
+    .details-header{
+      h3{
+        font-size: 40px;
+      }
+      p{
+        margin-top: -32px;
+      }
+    }
+    .pokemon-img-container{
+
+      .pokemon-img-detail{
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+
+  .stats {
+    width: 100%; /* 100% Breite auf kleineren Geräten */
+    max-width: 96%;
+    margin-top: -24px;
+    height: 250px;
+
+  }
+
+  .stats p {
+    font-size: 12px; /* Kleinere Schriftgröße auf mobilen Geräten */
+  }
+
+  .pokemon-img-container {
+    img {
+      max-height: 200px; /* Bildgröße anpassen */
+    }
+  }
+  .pokemon-details button {
+    background-color: rgb(228,30,37);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: -70px;
+  }
+  .Schließen-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 60px;
+    font-size: 24px;
+    color: white;
+  }
+
+
+
+
+}
+
+
+
+
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container">  <!-- Pokémon-Anzeige -->  <div *ngIf="pokemons.length > 0; else noData">    <div class="pokemon-grid">      <div        *ngFor="let pokemon of pokemons"        class="pokemon-card {{ pokemon.type }}"        (click)="showDetails(pokemon)"      >        <h3>{{ pokemon.name | titlecase }}</h3>        <img [src]="pokemon.image" [alt]="pokemon.name" />        <p>Typ: {{ pokemon.type | titlecase }}</p>      </div>    </div>  </div>  <!-- Keine Daten -->  <ng-template #noData>    <p>Keine Pokémon gefunden.</p>  </ng-template>  <!-- Lade-Button -->  <div class="load-more">    <button (click)="onLoadMore()" [disabled]="isLoading || isSearching">      Mehr laden    </button>  </div>  <!-- Detail-Popup -->  <div *ngIf="selectedPokemon" class="overlay" (click)="closeDetails($event)">    <div      class="pokemon-details {{ selectedPokemon.type }}"      (click)="$event.stopPropagation()"    >      <!-- Linker Pfeil -->      <button class="arrow left" (click)="prevPokemon($event)">❮</button>      <!-- Detailbereich -->      <div class="details-content">        <div class="details-header">          <h3>{{ selectedPokemon.name | titlecase }}</h3>          <p>{{ selectedPokemon.type | titlecase }}</p>        </div>        <!-- Bildbereich -->        <div class="pokemon-img-container">          <img            [src]="selectedPokemon.image"            [alt]="selectedPokemon.name"            class="pokemon-img-detail"          />        </div>        <!-- Statistiken des Pokémon mit Fortschrittsbalken -->        <div class="stats">          <div *ngFor="let stat of pokemonStats" class="stat-item">            <p>              <strong>{{ stat.name }}:</strong> {{ stat.value }}            </p>            <div class="progress-bar">              <div                class="progress"                [style.width]="stat.value + \'%\'"                [style.background-color]="stat.color"              ></div>            </div>          </div>        </div>        <!-- Typ des Pokémon -->        <div class="Schließen-btn">          <button (click)="closeDetails($event)">Schließen</button>        </div>      </div>      <!-- Rechter Pfeil -->      <button class="arrow right" (click)="nextPokemon($event)">❯</button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'PokemonListComponent', 'selector': 'app-pokemon-list'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PokemonListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PokemonListComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
