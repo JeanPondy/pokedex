@@ -61,10 +61,6 @@ export class PokemonService {
     );
 }
 
-
-
-
-
   // Methode, um ein einzelnes Pokémon per Namen zu laden
   getPokemonByName(name: string): Observable<Pokemon> {
     const url = `${this.apiUrl}/${name.toLowerCase()}`;
@@ -81,10 +77,6 @@ export class PokemonService {
   resetOffset() {
     this.offset = 0; // Offset zurücksetzen
 }
-
-
-
-
 
   searchPokemons(query: string): Observable<Pokemon[]> {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=1000`; // Alle Pokémon laden

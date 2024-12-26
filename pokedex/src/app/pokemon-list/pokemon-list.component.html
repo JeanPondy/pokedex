@@ -21,8 +21,8 @@
 
   <!-- Lade-Button -->
   <div class="load-more">
-    <button (click)="onLoadMore()" [disabled]="isLoading">
-      {{ isLoading ? "Lädt..." : "Mehr laden" }}
+    <button (click)="onLoadMore()" [disabled]="isLoading || isSearching">
+      Mehr laden
     </button>
   </div>
 

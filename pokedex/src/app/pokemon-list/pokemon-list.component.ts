@@ -16,6 +16,8 @@ export class PokemonListComponent implements OnInit, OnChanges {
   pokemons: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
   isLoading: boolean = false;
+  isSearching: boolean = false; // Status für Suchmodus
+
   errorMessage: string = '';
 
   pokemonStats: { name: string; value: number; color: string }[] = [];
@@ -28,28 +30,32 @@ export class PokemonListComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchQuery'] && changes['searchQuery'].currentValue !== changes['searchQuery'].previousValue) {
-        const query = changes['searchQuery'].currentValue.trim().toLowerCase();
-        
-        if (!query) {
-            // Suchfeld ist leer: Ursprüngliche Pokémon-Liste laden
-            this.pokemons = []; // Leeren, um doppelte Einträge zu vermeiden
-            this.pokemonService.resetOffset(); // Offset zurücksetzen
-            this.loadPokemons(); // Erste Pokémon laden
-        } else {
-            // Suchbegriff eingegeben: Suche durchführen
-            this.searchPokemon(query);
-        }
+      const query = changes['searchQuery'].currentValue.trim().toLowerCase();
+
+      if (!query) {
+        // Suchfeld ist leer: Ursprüngliche Pokémon-Liste laden
+        this.isSearching = false; // Suchmodus deaktivieren
+        this.pokemons = []; // Liste leeren, um doppelte Einträge zu vermeiden
+        this.pokemonService.resetOffset(); // Offset zurücksetzen
+        this.loadPokemons(); // Erste Pokémon laden
+      } else if (query.length >= 3) {
+        // Suchmodus aktivieren
+        this.isSearching = true;
+        this.searchPokemon(query); // Suche starten
+      } else {
+        alert('Bitte mindestens 3 Buchstaben eingeben!');
+      }
     }
-}
+  }
 
-// Aufgerufen, wenn der Benutzer auf "Mehr laden" klickt
-onLoadMore() {
-  this.isLoading = true; // Ladezustand aktivieren
-  this.pokemonService.updateOffset(); // Offset erhöhen
-  this.loadPokemons(); // Neue Pokémon laden
-}
+  // Aufgerufen, wenn der Benutzer auf "Mehr laden" klickt
+  onLoadMore() {
+    if (this.isSearching) return; // Keine neuen Pokémon laden, wenn im Suchmodus
 
-
+    this.isLoading = true; // Ladezustand aktivieren
+    this.pokemonService.updateOffset(); // Offset erhöhen
+    this.loadPokemons(); // Neue Pokémon laden
+  }
 
   // Ursprüngliche Pokémon-Liste laden
   loadPokemons() {
@@ -57,106 +63,46 @@ onLoadMore() {
     this.errorMessage = ''; // Fehler zurücksetzen
 
     this.pokemonService.getPokemons().subscribe({
-        next: (data: Pokemon[]) => {
-            if (data.length === 0) {
-                alert('Keine weiteren Pokémon verfügbar!');
-                this.isLoading = false;
-                return;
-            }
+      next: (data: Pokemon[]) => {
+        if (data.length === 0) {
+          alert('Keine weiteren Pokémon verfügbar!');
+          this.isLoading = false;
+          return;
+        }
 
-            // Hinzufügen ohne Duplikate und Sortieren nach ID
-            this.pokemons = [
-                ...this.pokemons,
-                ...data.filter((newPokemon) => 
-                    !this.pokemons.some((existing) => existing.id === newPokemon.id)
-                )
-            ].sort((a, b) => a.id - b.id);
+        // Hinzufügen ohne Duplikate und Sortieren nach ID
+        this.pokemons = [
+          ...this.pokemons,
+          ...data.filter((newPokemon) =>
+            !this.pokemons.some((existing) => existing.id === newPokemon.id)
+          ),
+        ].sort((a, b) => a.id - b.id);
 
-            this.isLoading = false;
-        },
-        error: (error) => {
-            console.error('Fehler beim Laden der Pokémon:', error);
-            this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
-            this.isLoading = false;
-        },
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Fehler beim Laden der Pokémon:', error);
+        this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
+        this.isLoading = false;
+      },
     });
-}
-
-
-
-
-
+  }
 
   // Suche durchführen
   searchPokemon(searchQuery: string) {
-    if (searchQuery.length < 3) {
-        alert('Bitte mindestens 3 Buchstaben eingeben!');
-        return;
-    }
-
     this.pokemonService.searchPokemons(searchQuery).subscribe({
-        next: (pokemons: Pokemon[]) => {
-            if (pokemons.length > 0) {
-                this.pokemons = pokemons; // Suchergebnisse anzeigen
-            } else {
-                alert('Kein Pokémon gefunden!');
-            }
-        },
-        error: (error) => {
-            console.error('Fehler bei der Pokémon-Suche:', error);
-            alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
-        },
-    });
-}
-
-
-  // Überprüft, ob die Eingabe gültig ist
-  private handleInvalidQuery(query: string): boolean {
-    if (!query) {
-      this.loadPokemons(); // Ursprüngliche Pokémon-Liste laden
-      return false;
-    }
-
-    if (query.length < 3) {
-      alert('Bitte mindestens 3 Buchstaben eingeben!');
-      return false;
-    }
-
-    return true;
-  }
-
-  // API-Abfrage für Pokémon basierend auf dem Suchbegriff
-  private fetchSearchResults(query: string) {
-    this.pokemonService.searchPokemons(query).subscribe({
       next: (pokemons: Pokemon[]) => {
         if (pokemons.length > 0) {
-          this.updatePokemonList(pokemons); // Pokémon-Liste aktualisieren
+          this.pokemons = pokemons; // Suchergebnisse anzeigen
         } else {
-          this.handleNoPokemonFound(); // Fall, wenn keine Pokémon gefunden wurden
+          alert('Kein Pokémon gefunden!');
         }
       },
       error: (error) => {
-        this.handleSearchError(error); // Fehlerbehandlung
+        console.error('Fehler bei der Pokémon-Suche:', error);
+        alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
       },
     });
-  }
-
-  // Pokémon-Liste aktualisieren
-  private updatePokemonList(pokemons: Pokemon[]) {
-    this.pokemons = pokemons; // Pokémon-Liste mit den Suchergebnissen aktualisieren
-  }
-
-  // Wenn keine Pokémon gefunden wurden
-  private handleNoPokemonFound() {
-    alert('Kein Pokémon mit diesen Buchstaben gefunden!');
-    this.loadPokemons(); // Ursprüngliche Liste wieder laden
-  }
-
-  // Fehler bei der Suche
-  private handleSearchError(error: any) {
-    console.error('Fehler bei der Pokémon-Suche:', error);
-    alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
-    this.loadPokemons(); // Ursprüngliche Liste wieder laden
   }
 
   // Öffnen der Detailansicht
