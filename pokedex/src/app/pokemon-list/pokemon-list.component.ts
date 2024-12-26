@@ -28,9 +28,28 @@ export class PokemonListComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchQuery'] && changes['searchQuery'].currentValue !== changes['searchQuery'].previousValue) {
-      this.searchPokemon(changes['searchQuery'].currentValue);
+        const query = changes['searchQuery'].currentValue.trim().toLowerCase();
+        
+        if (!query) {
+            // Suchfeld ist leer: Ursprüngliche Pokémon-Liste laden
+            this.pokemons = []; // Leeren, um doppelte Einträge zu vermeiden
+            this.pokemonService.resetOffset(); // Offset zurücksetzen
+            this.loadPokemons(); // Erste Pokémon laden
+        } else {
+            // Suchbegriff eingegeben: Suche durchführen
+            this.searchPokemon(query);
+        }
     }
-  }
+}
+
+// Aufgerufen, wenn der Benutzer auf "Mehr laden" klickt
+onLoadMore() {
+  this.isLoading = true; // Ladezustand aktivieren
+  this.pokemonService.updateOffset(); // Offset erhöhen
+  this.loadPokemons(); // Neue Pokémon laden
+}
+
+
 
   // Ursprüngliche Pokémon-Liste laden
   loadPokemons() {
@@ -38,26 +57,58 @@ export class PokemonListComponent implements OnInit, OnChanges {
     this.errorMessage = ''; // Fehler zurücksetzen
 
     this.pokemonService.getPokemons().subscribe({
-      next: (data: Pokemon[]) => {
-        this.pokemons = [...data].sort((a, b) => a.id - b.id); // Liste nach ID sortieren
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Fehler beim Laden der Pokémon:', error);
-        this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
-        this.isLoading = false;
-      },
+        next: (data: Pokemon[]) => {
+            if (data.length === 0) {
+                alert('Keine weiteren Pokémon verfügbar!');
+                this.isLoading = false;
+                return;
+            }
+
+            // Hinzufügen ohne Duplikate und Sortieren nach ID
+            this.pokemons = [
+                ...this.pokemons,
+                ...data.filter((newPokemon) => 
+                    !this.pokemons.some((existing) => existing.id === newPokemon.id)
+                )
+            ].sort((a, b) => a.id - b.id);
+
+            this.isLoading = false;
+        },
+        error: (error) => {
+            console.error('Fehler beim Laden der Pokémon:', error);
+            this.errorMessage = 'Es gab ein Problem beim Laden der Pokémon. Bitte versuche es später erneut.';
+            this.isLoading = false;
+        },
     });
-  }
+}
+
+
+
+
+
 
   // Suche durchführen
   searchPokemon(searchQuery: string) {
-    const query = searchQuery.trim().toLowerCase();
-    if (!this.handleInvalidQuery(query)) {   // Validierung und entsprechende Aktionen
-      return;
+    if (searchQuery.length < 3) {
+        alert('Bitte mindestens 3 Buchstaben eingeben!');
+        return;
     }
-    this.fetchSearchResults(query); // Suche ausführen, wenn der Suchbegriff gültig ist
-  }
+
+    this.pokemonService.searchPokemons(searchQuery).subscribe({
+        next: (pokemons: Pokemon[]) => {
+            if (pokemons.length > 0) {
+                this.pokemons = pokemons; // Suchergebnisse anzeigen
+            } else {
+                alert('Kein Pokémon gefunden!');
+            }
+        },
+        error: (error) => {
+            console.error('Fehler bei der Pokémon-Suche:', error);
+            alert('Es gab ein Problem bei der Suche. Bitte versuchen Sie es später erneut.');
+        },
+    });
+}
+
 
   // Überprüft, ob die Eingabe gültig ist
   private handleInvalidQuery(query: string): boolean {

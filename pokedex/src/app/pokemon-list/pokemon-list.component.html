@@ -21,7 +21,7 @@
 
   <!-- Lade-Button -->
   <div class="load-more">
-    <button (click)="loadPokemons()" [disabled]="isLoading">
+    <button (click)="onLoadMore()" [disabled]="isLoading">
       {{ isLoading ? "Lädt..." : "Mehr laden" }}
     </button>
   </div>
