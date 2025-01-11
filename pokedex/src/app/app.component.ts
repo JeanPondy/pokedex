@@ -10,11 +10,16 @@ import { HeaderComponent } from './header/header.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  title = 'pokedex'; 
+  searchQuery: string = ''; 
 
-  searchQuery: string = ''; // Suchbegriff wird hier gespeichert
-
-  // Event-Handler für die Suche
+  /**
+   * Handles the search event emitted by the `HeaderComponent`.
+   * Updates the `searchQuery` property to pass it to the `PokemonListComponent`.
+   * 
+   * @param searchQuery - The search term entered by the user.
+   */
   onSearchPokemon(searchQuery: string) {
-    this.searchQuery = searchQuery; // Suchbegriff an die Pokémon-Liste weitergeben
+    this.searchQuery = searchQuery; 
   }
 }

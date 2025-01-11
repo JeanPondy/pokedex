@@ -1,3 +1,6 @@
+/**
+ * Represents a Pokémon with detailed statistics.
+ */
 export interface Pokemon {
   id: number; 
   name: string;
