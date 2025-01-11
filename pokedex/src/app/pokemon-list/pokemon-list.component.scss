@@ -253,8 +253,8 @@
   left: 0;
   width: 100vw; /* 100% der Breite des Viewports */
   height: 100vh; /* 100% der Höhe des Viewports */
-  //background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
-  z-index: 999; /* Über dem Detail-Popup */
+  background: rgba(175, 178, 177, 0.858); /* Halbtransparenter Hintergrund */
+  z-index: 1120; /* Über dem Detail-Popup */
 }
 
 .pokemon-details {
@@ -266,6 +266,7 @@
   max-width: 400px; /* Maximale Breite von 400px */
   max-height: 70vh; /* Maximale Höhe von 90vh */
   overflow-y: auto; /* Scrollen, wenn der Inhalt zu groß ist */
+  overflow-x: hidden;
   padding: 20px;
   background: #f4f4f4; 
   border-radius: 8px;
@@ -273,10 +274,9 @@
   text-align: center;
   z-index: 1000;
   display: flex;
-  flex-direction: column; /* Flexbox für Inhalt */
+  flex-direction: column; 
   gap: 16px;
 
-  /* Optional: Farbe für den Hintergrund */
   background-color: white; 
   border-radius: 40px; 
 }

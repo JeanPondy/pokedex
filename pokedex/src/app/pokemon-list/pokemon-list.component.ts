@@ -22,10 +22,7 @@ export class PokemonListComponent implements OnInit, OnChanges {
 
   pokemonStats: { name: string; value: number; color: string }[] = [];
 
-  /**
-   * Constructor to inject the PokemonService.
-   * @param pokemonService The service to fetch Pokemon data.
-   */
+ 
   constructor(private pokemonService: PokemonService) {}
 
   /**

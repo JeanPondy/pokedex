@@ -5,17 +5,15 @@ import { Pokemon } from '../models/pokemon';
 
 
 
-/**
- * Service for fetching and managing Pokémon data.
- */
+
 @Injectable({
   providedIn: 'root',
 })
 
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
-  private offset = 0; // Startpunkt für Pagination
-  private limit = 24; // Anzahl der Pokémon pro Anfrage
+  private offset = 0; 
+  private limit = 24; 
 
   constructor(private http: HttpClient) {}
 
@@ -41,36 +39,6 @@ export class PokemonService {
     );
   }
 
-/*   getPokemons(): Observable<Pokemon[]> {
-    const url = `${this.apiUrl}?offset=${this.offset}&limit=${this.limit}`;
-
-    return this.http.get<any>(url).pipe(
-        map((response) => response.results),
-        concatMap((results) => {
-            return new Observable<Pokemon[]>((observer) => {
-                const pokemons: Pokemon[] = [];
-                let completedRequests = 0;
-
-                results.forEach((pokemon: any) => {
-                    this.fetchPokemonDetails(pokemon.url).subscribe({
-                        next: (pokemonDetails) => {
-                            pokemons.push(pokemonDetails);
-                            completedRequests++;
-                            if (completedRequests === results.length) {
-                                // Sortiere Pokémon nach ID, bevor sie zurückgegeben werden
-                                observer.next(pokemons.sort((a, b) => a.id - b.id));
-                                observer.complete();
-                            }
-                        },
-                        error: (error) => observer.error(error),
-                    });
-                });
-            });
-        })
-    );
-} */
-
-// Hauptmethode, die eine Observable mit Pokémon zurückgibt
 
   /**
    * Fetches a list of Pokémon.

@@ -7,10 +7,10 @@
     z-index: 1111;
 
     .header {
-        max-width: 1440px;   /* Begrenzung der maximalen Breite */
-        width: 80%;         /* Header nimmt 100% der Breite bis zur Maximalbreite ein */
-        margin: 0 auto;      /* Zentriert den Header */
-        padding: 20px 160px; /* Innenabstand */
+        max-width: 1440px;   
+        width: 80%;        
+        margin: 0 auto;     
+        padding: 20px 160px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -78,7 +78,7 @@
        }
     }
    }
-   @media (max-width: 1096px) {
+@media (max-width: 1096px) {
     .contain{
        .header {
            width: 60%;  
