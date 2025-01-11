@@ -54,11 +54,11 @@ getPokemons(): Observable<Pokemon[]> {
   );
 }
 
- /**
+/**
    * Fetches the details of a list of Pokémon.
    * @param results The list of Pokémon URLs to fetch.
    * @returns An observable with a list of Pokémon details.
-   */
+*/
 private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
   return new Observable<Pokemon[]>((observer) => {
     const pokemons: Pokemon[] = [];
@@ -83,8 +83,6 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
 
 
 
-/* ----------------------------------------------------- */
-
 /**
  * Fetches a single Pokémon by name.
  * @param {string} name - The name of the Pokémon to fetch
@@ -108,42 +106,10 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
  * Resets the offset for pagination.
  */
   resetOffset() {
-    this.offset = 0; // Offset zurücksetzen
+    this.offset = 0;
 }
 
-/*   searchPokemons(query: string): Observable<Pokemon[]> {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=1000`; // Alle Pokémon laden
-
-    return this.http.get<any>(url).pipe(
-      map((response) => response.results),
-      map((results: any[]) =>
-        results.filter((pokemon) => pokemon.name.startsWith(query)) // Filter in der API-Antwort
-      ),
-      concatMap((filteredPokemons) => {
-        return new Observable<Pokemon[]>((observer) => {
-          const pokemons: Pokemon[] = [];
-          let completedRequests = 0;
-
-          filteredPokemons.forEach((pokemon: any) => {
-            this.fetchPokemonDetails(pokemon.url).subscribe({
-              next: (pokemonDetails) => {
-                pokemons.push(pokemonDetails);
-                completedRequests++;
-                if (completedRequests === filteredPokemons.length) {
-                  observer.next(pokemons);
-                  observer.complete();
-                }
-              },
-              error: (error) => observer.error(error),
-            });
-          });
-        });
-      })
-    );
-  } */
-
-
-    /**
+/**
  * Searches for Pokémon based on a query string.
  * @param {string} query - The search query
  * @returns {Observable<Pokemon[]>} An observable with a list of matching Pokémon
@@ -156,10 +122,11 @@ private fetchPokemonDetailsList(results: any[]): Observable<Pokemon[]> {
         map((results: any[]) => 
           results.filter((pokemon) => pokemon.name.startsWith(query)) // Filter in der API-Antwort
         ),
-        concatMap((filteredPokemons) => this.fetchFilteredPokemonDetails(filteredPokemons)) // Hilfsmethode aufrufen
+        concatMap((filteredPokemons) => this.fetchFilteredPokemonDetails(filteredPokemons)) 
       );
     }
-   /**
+
+ /**
  * Helper method for fetching details of filtered Pokémon.
  * @param {any[]} filteredPokemons - The list of filtered Pokémon
  * @returns {Observable<Pokemon[]>} An observable with a list of Pokémon details

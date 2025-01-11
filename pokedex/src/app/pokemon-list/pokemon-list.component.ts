@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit, OnChanges {
-  @Input() searchQuery: string = ''; // Search query input
+  @Input() searchQuery: string = ''; 
 
   pokemons: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
   isLoading: boolean = false;
-  isSearching: boolean = false; // Status for searching mode
+  isSearching: boolean = false; 
 
   errorMessage: string = '';
 

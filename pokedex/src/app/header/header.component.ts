@@ -28,9 +28,9 @@ export class HeaderComponent {
   searchPokemon() {
     const query = this.searchQuery.trim();
     if (query.length >= 3) {
-      this.searchPokemonEvent.emit(query); // Emit the search query to the parent
+      this.searchPokemonEvent.emit(query); 
     } else if (query.length === 0) {
-      this.searchPokemonEvent.emit(''); // Emit an empty query to reset search
+      this.searchPokemonEvent.emit(''); 
     }
   }
 }
